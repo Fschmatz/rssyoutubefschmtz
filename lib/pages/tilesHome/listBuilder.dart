@@ -13,9 +13,12 @@ class ListBuilder extends StatefulWidget {
   ListBuilder({Key key, this.feedUrl}) : super(key: key);
 }
 
-class _ListBuilderState extends State<ListBuilder> {
+class _ListBuilderState extends State<ListBuilder> with AutomaticKeepAliveClientMixin{
   bool carregando = true;
   Map<int, AtomItem> feedYoutube = new Map();
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -25,9 +28,6 @@ class _ListBuilderState extends State<ListBuilder> {
 
   //Feed do Youtube sempre será de 15 items
   Future<void> getRssYoutubeData() async {
-    /*setState(() {
-      carregando = true;
-    });*/
     var client = http.Client();
     var response = await client.get(widget.feedUrl);
 

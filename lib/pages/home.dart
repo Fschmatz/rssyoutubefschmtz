@@ -9,13 +9,26 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   TabController _tabController;
+
+  //FEEDS URL
+  String feedCursoEmVideo =
+      'https://www.youtube.com/feeds/videos.xml?channel_id=UCrWvhVmt0Qac3HgsjQK62FQ';
+  String feedNetNinja =
+      'https://www.youtube.com/feeds/videos.xml?channel_id=UCW5YeuERMmlnqo4oq8vwUpg';
+  String feedFreeCodeCamp =
+      'https://www.youtube.com/feeds/videos.xml?channel_id=UC8butISFwT-Wl7EV0hUK0BQ';
+  String feedMosh =
+      'https://www.youtube.com/feeds/videos.xml?channel_id=UCWv7vMbMWH4-V0ZXdmDpPBA';
+  String feedCodingTrain =
+      'https://www.youtube.com/feeds/videos.xml?channel_id=UCvjgXvBlbQiydffZU7m1_aw';
+
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3,vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -43,6 +56,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
                         Tab(text: "Curso em Vídeo"),
                         Tab(text: "The Net Ninja"),
                         Tab(text: "FreeCodeCamp"),
+                        Tab(text: "The Coding Train"),
+                        Tab(text: "Mosh"),
                       ],
                     ),
                   ),
@@ -52,17 +67,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
             body: TabBarView(
               controller: _tabController,
               children: [
-                ListBuilder(
-                    feedUrl:
-                        'https://www.youtube.com/feeds/videos.xml?channel_id=UCrWvhVmt0Qac3HgsjQK62FQ'),
-                ListBuilder(
-                    feedUrl:
-                        'https://www.youtube.com/feeds/videos.xml?channel_id=UCW5YeuERMmlnqo4oq8vwUpg'),
-                ListBuilder(
-                    feedUrl:
-                        'https://www.youtube.com/feeds/videos.xml?channel_id=UC8butISFwT-Wl7EV0hUK0BQ'),
+                ListBuilder(feedUrl: feedCursoEmVideo),
+                ListBuilder(feedUrl: feedNetNinja),
+                ListBuilder(feedUrl: feedFreeCodeCamp),
+                ListBuilder(feedUrl: feedCodingTrain),
+                ListBuilder(feedUrl: feedMosh),
               ],
-             // physics: NeverScrollableScrollPhysics(),
+              // physics: NeverScrollableScrollPhysics(),
             ),
           ),
           Positioned(
