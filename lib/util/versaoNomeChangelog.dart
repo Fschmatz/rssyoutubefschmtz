@@ -2,7 +2,7 @@ class versaoNomeChangelog{
 
   //se mudar o nome do App não esquecer de alterar, no manifesto
   static String versaoApp = "2.0.0";
-  static String nomeApp = "RSS Fschmtz";
+  static String nomeApp = "RSS Youtube Fschmtz";
 
   //1 espaço acima, nenhum embaixo
   static String changelogUltimaVersao = '''  

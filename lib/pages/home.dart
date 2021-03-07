@@ -110,7 +110,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ),
         bottomNavigationBar: BottomAppBar(
             child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
