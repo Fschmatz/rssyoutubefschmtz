@@ -1,4 +1,4 @@
-# RssReader Fschmtz
+# RssYoutube Fschmtz
 
 Aplicativo feito para TESTE na leitura de Feeds Rss.
 Somente possui alguns canais hardcoded.
