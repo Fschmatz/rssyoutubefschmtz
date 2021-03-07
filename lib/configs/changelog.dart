@@ -26,7 +26,7 @@ class Changelog extends StatelessWidget {
               child: Text(
                 versaoNomeChangelog.changelogUltimaVersao,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 17,
                 ),
               ),
             ),

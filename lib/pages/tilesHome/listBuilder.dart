@@ -13,12 +13,9 @@ class ListBuilder extends StatefulWidget {
   ListBuilder({Key key, this.feedUrl}) : super(key: key);
 }
 
-class _ListBuilderState extends State<ListBuilder> with AutomaticKeepAliveClientMixin{
+class _ListBuilderState extends State<ListBuilder>{
   bool carregando = true;
   Map<int, AtomItem> feedYoutube = new Map();
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -30,46 +27,58 @@ class _ListBuilderState extends State<ListBuilder> with AutomaticKeepAliveClient
   Future<void> getRssYoutubeData() async {
     var client = http.Client();
     var response = await client.get(widget.feedUrl);
-
     var channel = AtomFeed.parse(response.body);
-    setState(() {
-      feedYoutube = channel.items.asMap();
-      carregando = false;
-    });
+    if (mounted) {
+      setState(() {
+        feedYoutube = channel.items.asMap();
+        carregando = false;
+      });
+    }
     client.close();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: getRssYoutubeData,
-      child: carregando
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              child: ListView.separated(
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(
-                  height: 5,
+    return carregando
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 50,
                 ),
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: feedYoutube.length,
-                itemBuilder: (context, index) {
-                  return ContainerItemHome(
-                    feed: new Feed(
-                      title: feedYoutube[index].title,
-                      link: feedYoutube[index].links[0].href,
-                      data: feedYoutube[index].published,
-                      linkImagem: 'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
-                    )
-                  );
-                },
-              ),
+                Text(
+                  feedYoutube[0].authors[0].name,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.w600),
+                ),
+                ListView.separated(
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox(
+                    height: 5,
+                  ),
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: feedYoutube.length,
+                  itemBuilder: (context, index) {
+                    return ContainerItemHome(
+                      feed: new Feed(
+                        title: feedYoutube[index].title,
+                        link: feedYoutube[index].links[0].href,
+                        data: feedYoutube[index].published,
+                        linkImagem: 'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
+                      )
+                    );
+                  },
+                ),
+              ],
             ),
-    );
+          );
   }
 }
 

@@ -1,7 +1,7 @@
 class versaoNomeChangelog{
 
   //se mudar o nome do App não esquecer de alterar, no manifesto
-  static String versaoApp = "1.2";
+  static String versaoApp = "2.0.0";
   static String nomeApp = "RSS Fschmtz";
 
   //1 espaço acima, nenhum embaixo
@@ -9,12 +9,16 @@ class versaoNomeChangelog{
   
 Versão Atual:  
 
-1.2
+2.0.0
+- New UI
 - More Channels
-- Theme Changes 
 ''';
 
   static String changelogsAntigos = '''
+
+1.2
+- More Channels
+- Theme Changes 
 
 1.1
 - KeepAlive
