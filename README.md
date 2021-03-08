@@ -7,4 +7,4 @@ Criado com o Android em mente, não foi testado para IOS.
 
 APK compartilhado nos releases.
 
-<img src="https://user-images.githubusercontent.com/21291813/107878467-b206f800-6eb1-11eb-8a5b-329ca37cc800.png" width="30%"></img> 
+<img src="https://user-images.githubusercontent.com/21291813/110397175-1d2a9100-8050-11eb-9634-8bf9f67b8bbf.png" width="30%"></img> 
