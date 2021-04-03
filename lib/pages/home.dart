@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:rssreaderfschmtz/classes/channelFeed.dart';
-import 'package:rssreaderfschmtz/pages/tilesHome/listBuilder.dart';
-import 'package:rssreaderfschmtz/configs/configs.dart';
-import 'package:rssreaderfschmtz/util/versaoNomeChangelog.dart';
+import 'package:rssyoutubefschmtz/classes/channelFeed.dart';
+import 'package:rssyoutubefschmtz/classes/feedListChannels.dart';
+import 'package:rssyoutubefschmtz/pages/tilesHome/builderFeedList.dart';
+import 'package:rssyoutubefschmtz/configs/configs.dart';
+import 'package:rssyoutubefschmtz/pages/tilesHome/recentVideosFromAll.dart';
+import 'package:rssyoutubefschmtz/util/nameChangelog.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,39 +13,34 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  List<ChannelFeed> listChannels = [];
+  List<ChannelFeed> listChannels = new FeedListChannels().getFeedListChannels();
   String currentFeed;
+  bool recentVideosFromAll = true;
+  String pageName;
 
   @override
   void initState() {
     super.initState();
-    listChannels.add(new ChannelFeed(
-        name: 'Curso Em Vídeo',
-        linkFeed:
-            'https://www.youtube.com/feeds/videos.xml?channel_id=UCrWvhVmt0Qac3HgsjQK62FQ'));
-    listChannels.add(new ChannelFeed(
-        name: 'The Net Ninja',
-        linkFeed:
-            'https://www.youtube.com/feeds/videos.xml?channel_id=UCW5YeuERMmlnqo4oq8vwUpg'));
-    listChannels.add(new ChannelFeed(
-        name: 'FreeCodeCamp',
-        linkFeed:
-            'https://www.youtube.com/feeds/videos.xml?channel_id=UC8butISFwT-Wl7EV0hUK0BQ'));
-    listChannels.add(new ChannelFeed(
-        name: 'Fun With Flutter',
-        linkFeed:
-            'https://www.youtube.com/feeds/videos.xml?channel_id=UCU8Mj6LLoNBXqqeoOD64tFg'));
-    listChannels.add(new ChannelFeed(
-        name: 'The Coding Train',
-        linkFeed:
-            'https://www.youtube.com/feeds/videos.xml?channel_id=UCvjgXvBlbQiydffZU7m1_aw'));
-
     currentFeed = listChannels[0].linkFeed;
+    pageName = "Recent Videos";
   }
 
   Future<void> changeFeed(String urlNewFeed) {
     setState(() {
+      recentVideosFromAll = false;
       currentFeed = urlNewFeed;
+    });
+  }
+
+  Future<void> changeFeedToRecents() {
+    setState(() {
+      recentVideosFromAll = true;
+    });
+  }
+
+  void changePageName(String name){
+    setState(() {
+      pageName = name;
     });
   }
 
@@ -57,60 +54,95 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext bc) {
-          return Wrap(children: [
-            Card(
-              margin: EdgeInsets.fromLTRB(50, 15, 50, 20),
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.grey[700], width: 2),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: ListTile(
-                title: Text(
-                  versaoNomeChangelog.nomeApp +
-                      " " +
-                      versaoNomeChangelog.versaoApp,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+            child: Wrap(children: [
+              Card(
+                color: Theme.of(context).bottomAppBarColor,
+                margin: EdgeInsets.fromLTRB(50, 15, 50, 20),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.grey[700], width: 2),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: ListTile(
+                  title: Text(
+                    NameChangelog.nomeApp + " " + NameChangelog.versaoApp,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
-            ),
-            ListView.separated(
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(
+
+              ListTile(
+                onTap: () {
+                  changePageName("Recent Videos");
+                  changeFeedToRecents();
+                  Navigator.of(context).pop();
+                },
+                leading: Icon(Icons.new_releases_outlined),
+                title: Text(
+                  "Recent Videos",
+                  style: TextStyle(fontSize: 18),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+              ),
+              const Divider(
                 thickness: 1.2,
               ),
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: listChannels.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    changeFeed(listChannels[index].linkFeed);
-                  },
-                  leading: Icon(Icons.video_library),
-                  title: Text(
-                    listChannels[index].name,
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                );
-              },
-            ),
-          ]);
+
+              ListView.separated(
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(
+                  thickness: 1.2,
+                ),
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: listChannels.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    onTap: () {
+                      changePageName(listChannels[index].name);
+                      Navigator.of(context).pop();
+                      changeFeed(listChannels[index].linkFeed);
+                    },
+                    leading: Icon(Icons.video_library),
+                    title: Text(
+                      listChannels[index].name,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    trailing: Icon(Icons.keyboard_arrow_right),
+                  );
+                },
+              ),
+            ]),
+          );
         });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListBuilder(
+        appBar: AppBar(
+          elevation: 0,
+          title: Text(" "+pageName,
+              style: TextStyle(
+                  color: Theme.of(context).textTheme.headline6.color,
+                  fontSize: 19,
+                  fontWeight: FontWeight.w600)),
+        ),
+        body:
+        recentVideosFromAll ? RecentVideosFromAll(
+          key: UniqueKey(),
+        ) :
+        BuilderFeedList(
           key: UniqueKey(),
           feedUrl: currentFeed,
+          recents: false,
+          index: 0,
         ),
         bottomNavigationBar: BottomAppBar(
             child: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -125,7 +157,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   }),
               IconButton(
                   icon: Icon(
-                    Icons.menu,
+                    Icons.menu_outlined,
                     //size: 24,
                     color: Theme.of(context).hintColor,
                   ),
@@ -134,7 +166,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   }),
               IconButton(
                   icon: Icon(
-                    Icons.settings,
+                    Icons.settings_outlined,
                     //size: 24,
                     color: Theme.of(context).hintColor,
                   ),

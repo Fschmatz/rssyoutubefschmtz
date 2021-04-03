@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../util/versaoNomeChangelog.dart';
+import '../util/nameChangelog.dart';
 
 class Changelog extends StatelessWidget {
   @override
@@ -24,7 +24,7 @@ class Changelog extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.fromLTRB(18, 0, 18, 5),
               child: Text(
-                versaoNomeChangelog.changelogUltimaVersao,
+                NameChangelog.changelogUltimaVersao,
                 style: TextStyle(
                   fontSize: 17,
                 ),
@@ -46,7 +46,7 @@ class Changelog extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  versaoNomeChangelog.changelogsAntigos,
+                  NameChangelog.changelogsAntigos,
                   style: TextStyle(
                     fontSize: 16,
                   ),

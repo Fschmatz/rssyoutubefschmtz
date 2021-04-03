@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rssreaderfschmtz/pages/home.dart';
-import 'package:rssreaderfschmtz/util/theme.dart';
+import 'package:rssyoutubefschmtz/pages/home.dart';
+import 'package:rssyoutubefschmtz/util/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

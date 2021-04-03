@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rssreaderfschmtz/configs/about.dart';
-import 'package:rssreaderfschmtz/configs/changelog.dart';
-import 'package:rssreaderfschmtz/util/theme.dart';
-import '../util/versaoNomeChangelog.dart';
+import 'package:rssyoutubefschmtz/configs/about.dart';
+import 'package:rssyoutubefschmtz/configs/changelog.dart';
+import 'package:rssyoutubefschmtz/util/theme.dart';
+import '../util/nameChangelog.dart';
 import 'package:provider/provider.dart';
 
 class Configs extends StatefulWidget {
@@ -45,9 +45,9 @@ class _ConfigsState extends State<Configs> {
                 child: ListTile(
                   title: Text(
                     "Flutter " +
-                        versaoNomeChangelog.nomeApp +
+                        NameChangelog.nomeApp +
                         " " +
-                        versaoNomeChangelog.versaoApp,
+                        NameChangelog.versaoApp,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 18, color: Colors.black),
                   ),
@@ -103,14 +103,14 @@ class _ConfigsState extends State<Configs> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40.0,
               ),
               Text(
                 "Options: ",
                 style: TextStyle(fontSize: 21),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15.0,
               ),
 
@@ -128,11 +128,6 @@ class _ConfigsState extends State<Configs> {
                         notifier.toggleTheme();
                       }),
                 ),
-              ),
-
-
-              SizedBox(
-                height: 15.0,
               ),
             ],
           ),

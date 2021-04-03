@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../util/versaoNomeChangelog.dart';
+import '../util/nameChangelog.dart';
 
 class About extends StatelessWidget {
 
@@ -20,7 +20,7 @@ class About extends StatelessWidget {
               children: <Widget>[
 
                 SizedBox(height: 20),
-                Text(versaoNomeChangelog.nomeApp+" " + versaoNomeChangelog.versaoApp,
+                Text(NameChangelog.nomeApp+" " + NameChangelog.versaoApp,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 19,
