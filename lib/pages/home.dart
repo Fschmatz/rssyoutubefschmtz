@@ -38,7 +38,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     });
   }
 
-  void changePageName(String name){
+  void changePageName(String name) {
     setState(() {
       pageName = name;
     });
@@ -72,24 +72,31 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   ),
                 ),
               ),
-
               ListTile(
                 onTap: () {
                   changePageName("Recent Videos");
                   changeFeedToRecents();
                   Navigator.of(context).pop();
                 },
-                leading: Icon(Icons.new_releases_outlined),
+                leading: Icon(Icons.new_releases_outlined,
+                    color: pageName.compareTo("Recent Videos").isEven
+                        ? Theme.of(context).accentColor
+                        : Colors.white70),
                 title: Text(
                   "Recent Videos",
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: pageName.compareTo("Recent Videos").isEven
+                          ? Theme.of(context).accentColor
+                          : Colors.white70),
                 ),
-                trailing: Icon(Icons.keyboard_arrow_right),
+                trailing: pageName.compareTo("Recent Videos").isEven
+                    ? SizedBox.shrink()
+                    : Icon(Icons.keyboard_arrow_right),
               ),
               const Divider(
                 thickness: 1.2,
               ),
-
               ListView.separated(
                 separatorBuilder: (BuildContext context, int index) =>
                     const Divider(
@@ -105,12 +112,26 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       Navigator.of(context).pop();
                       changeFeed(listChannels[index].linkFeed);
                     },
-                    leading: Icon(Icons.video_library),
+                    leading: Icon(
+                      Icons.video_library,
+                      color: pageName.compareTo(listChannels[index].name).isEven
+                          ? Theme.of(context).accentColor
+                          : Colors.white70,
+                    ),
                     title: Text(
                       listChannels[index].name,
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: pageName
+                                  .compareTo(listChannels[index].name)
+                                  .isEven
+                              ? Theme.of(context).accentColor
+                              : Colors.white70),
                     ),
-                    trailing: Icon(Icons.keyboard_arrow_right),
+                    trailing:
+                        pageName.compareTo(listChannels[index].name).isEven
+                            ? SizedBox.shrink()
+                            : Icon(Icons.keyboard_arrow_right),
                   );
                 },
               ),
@@ -124,41 +145,44 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text(" "+pageName,
+          title: Text(pageName,
               style: TextStyle(
                   color: Theme.of(context).textTheme.headline6.color,
                   fontSize: 19,
                   fontWeight: FontWeight.w600)),
         ),
-        body:
-        recentVideosFromAll ? RecentVideosFromAll(
-          key: UniqueKey(),
-        ) :
-        BuilderFeedList(
-          key: UniqueKey(),
-          feedUrl: currentFeed,
-          recents: false,
-          index: 0,
-        ),
+        body: recentVideosFromAll
+            ? RecentVideosFromAll(
+                key: UniqueKey(),
+              )
+            : BuilderFeedList(
+                key: UniqueKey(),
+                feedUrl: currentFeed,
+                recents: false,
+                index: 0,
+              ),
         bottomNavigationBar: BottomAppBar(
             child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
                   icon: Icon(
                     Icons.refresh_outlined,
-                    //size: 24,
                     color: Theme.of(context).hintColor,
                   ),
                   onPressed: () {
-                    changeFeed(currentFeed);
+                    if (!pageName.compareTo('Recent Videos').isEven) {
+                      changeFeed(currentFeed);
+                    } else {
+                      changeFeedToRecents();
+                    }
                   }),
               IconButton(
+                  iconSize: 25,
                   icon: Icon(
                     Icons.menu_outlined,
-                    //size: 24,
                     color: Theme.of(context).hintColor,
                   ),
                   onPressed: () {
@@ -167,7 +191,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               IconButton(
                   icon: Icon(
                     Icons.settings_outlined,
-                    //size: 24,
                     color: Theme.of(context).hintColor,
                   ),
                   onPressed: () {

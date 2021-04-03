@@ -34,7 +34,7 @@ class Changelog extends StatelessWidget {
 
           Divider(thickness: 2,),
           Container(
-            padding: EdgeInsets.fromLTRB(15, 10, 15, 5),
+            padding: EdgeInsets.fromLTRB(20, 10, 20, 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

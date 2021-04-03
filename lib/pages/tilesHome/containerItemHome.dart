@@ -27,7 +27,7 @@ class ContainerItemHome extends StatelessWidget {
 
     return Card(
       elevation: 2,
-      margin: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+      margin: const EdgeInsets.fromLTRB(15, 8, 15, 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(15)),
         side: BorderSide(
@@ -53,10 +53,14 @@ class ContainerItemHome extends StatelessWidget {
               )
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Text(
-                feed.title,
-                style: TextStyle(fontSize: 17),
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  feed.title,
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontSize: 17.5),
+                ),
               ),
             ),
             Padding(
@@ -70,8 +74,9 @@ class ContainerItemHome extends StatelessWidget {
                     ),
                     IconButton(
                         icon: Icon(Icons.share_outlined),
+                        color: Theme.of(context).hintColor,
                         constraints: BoxConstraints(),
-                        iconSize: 23,
+                        iconSize: 22,
                         splashRadius: 28,
                         onPressed: () {
                           Share.share(feed.link);
