@@ -36,7 +36,7 @@ class _ConfigsState extends State<Configs> {
                   Card(
                     elevation: 0,
                     margin: const EdgeInsets.all(2.0),
-                    color: Colors.pinkAccent[700],
+                    color: Colors.red[800].withOpacity(0.8),
                     child: ListTile(
                       title: Text(
                         "Flutter " +
@@ -44,7 +44,7 @@ class _ConfigsState extends State<Configs> {
                             " " +
                             NameChangelog.versaoApp,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18, color: Theme.of(context).textTheme.headline6.color),
+                        style: TextStyle(fontSize: 18, color: Colors.black87),
                       ),
                     ),
                   ),

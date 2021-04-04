@@ -61,7 +61,7 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
             child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: widget.recents ? 2 : feedYoutube.length,
+              itemCount: widget.recents ? 1 : feedYoutube.length,
               itemBuilder: (context, index) {
                 return ContainerItemHome(
                     feed: new Feed(
