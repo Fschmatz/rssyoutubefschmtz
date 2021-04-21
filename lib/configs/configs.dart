@@ -23,7 +23,6 @@ class _ConfigsState extends State<Configs> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Settings"),
-          centerTitle: true,
           elevation: 0,
         ),
         body: Stack(
@@ -34,9 +33,12 @@ class _ConfigsState extends State<Configs> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
                     elevation: 0,
                     margin: const EdgeInsets.all(2.0),
-                    color: Colors.red[800].withOpacity(0.8),
+                    color: Color(0xFFDF5B51),
                     child: ListTile(
                       title: Text(
                         "Flutter " +
@@ -63,6 +65,9 @@ class _ConfigsState extends State<Configs> {
                           ),
                         ),
                         child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          ),
                           leading: Icon(Icons.text_snippet_outlined),
                           trailing: Icon(Icons.keyboard_arrow_right),
                           title: Text(
@@ -92,6 +97,9 @@ class _ConfigsState extends State<Configs> {
                           ),
                         ),
                         child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          ),
                           leading: Icon(Icons.text_snippet_outlined),
                           trailing: Icon(Icons.keyboard_arrow_right),
                           title: Text(
