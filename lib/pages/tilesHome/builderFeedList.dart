@@ -46,18 +46,6 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
       appBar: AppBar(
         title: Text(widget.channelName),
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.refresh_outlined),
-            tooltip: 'Refresh',
-            onPressed: () {
-              setState(() {
-                carregando = true;
-              });
-              getRssYoutubeData();
-            },
-          ),
-        ],
       ),
       body: carregando
           ? Visibility(
@@ -71,28 +59,31 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
           ),
         ),
       )
-          : ListView(
+          : RefreshIndicator(
+        onRefresh: () =>  getRssYoutubeData(),
+            child: ListView(
         physics: AlwaysScrollableScrollPhysics(),
-            children: [
-              ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: feedYoutube.length,
-                    itemBuilder: (context, index) {
-                      return ContainerItemHome(
-                          feed: new Feed(
-                            title: feedYoutube[index].title,
-                            link: feedYoutube[index].links[0].href,
-                            data: feedYoutube[index].published,
-                            linkImagem:
-                            'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
-                          ));
-                    },
-              ),
-              const SizedBox(
-                height: 30,
-              )
-            ],
+              children: [
+                ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: feedYoutube.length,
+                      itemBuilder: (context, index) {
+                        return ContainerItemHome(
+                            feed: new Feed(
+                              title: feedYoutube[index].title,
+                              link: feedYoutube[index].links[0].href,
+                              data: feedYoutube[index].published,
+                              linkImagem:
+                              'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
+                            ));
+                      },
+                ),
+                const SizedBox(
+                  height: 30,
+                )
+              ],
+            ),
           ),
     );
   }

@@ -36,23 +36,29 @@ class _RecentVideosFromAllState extends State<RecentVideosFromAll> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: AlwaysScrollableScrollPhysics(),
-      children: [
-        ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: channelList.length,
-          itemBuilder: (context, index) {
-            getRssYoutubeData(index);
-            return BuilderRecentsFeedList(
-              key: UniqueKey(),
-              feedUrl: currentFeed,
-              index: index,
-            );
-          },
-        ),
-      ],
+    return RefreshIndicator(
+      onRefresh: () => getAllChannels(),
+      child: ListView(
+        physics: AlwaysScrollableScrollPhysics(),
+        children: [
+          ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: channelList.length,
+            itemBuilder: (context, index) {
+              getRssYoutubeData(index);
+              return BuilderRecentsFeedList(
+                key: UniqueKey(),
+                feedUrl: currentFeed,
+                index: index,
+              );
+            },
+          ),
+          const SizedBox(
+            height: 30,
+          )
+        ],
+      ),
     );
 
   }
