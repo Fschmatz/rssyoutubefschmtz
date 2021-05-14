@@ -4,16 +4,16 @@ import 'package:rssyoutubefschmtz/pages/saveEditChannel.dart';
 import 'package:rssyoutubefschmtz/pages/tilesHome/builderFeedList.dart';
 
 class ChannelList extends StatefulWidget {
-  const ChannelList({Key key}) : super(key: key);
+  ChannelList({Key key}) : super(key: key);
 
   @override
   _ChannelListState createState() => _ChannelListState();
 }
 
 class _ChannelListState extends State<ChannelList> {
-
   final dbChannel = ChannelDao.instance;
   List<Map<String, dynamic>> channelList = [];
+  String urlYoutube = 'https://www.youtube.com/feeds/videos.xml?channel_id=';
 
   @override
   void initState() {
@@ -26,10 +26,47 @@ class _ChannelListState extends State<ChannelList> {
   }
 
   Future<void> getAllChannels() async {
-    var resp = await dbChannel.queryAllRows();
+    var resp = await dbChannel.queryAllOrderByChannelName();
     setState(() {
       channelList = resp;
     });
+  }
+
+  showAlertDialogOkDelete(BuildContext context, int index) {
+    Widget okButton = TextButton(
+      child: Text(
+        "Yes",
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+      onPressed: () {
+        deleteChannel(channelList[index]['idChannel']);
+        getAllChannels();
+        Navigator.of(context).pop();
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      elevation: 3.0,
+      title: Text(
+        "Confirmation ", //
+        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+      ),
+      content: Text(
+        "\nDelete Channel ?",
+        style: TextStyle(
+          fontSize: 18,
+        ),
+      ),
+      actions: [
+        okButton,
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   @override
@@ -47,25 +84,30 @@ class _ChannelListState extends State<ChannelList> {
                   Navigator.push(
                       context,
                       MaterialPageRoute<void>(
-                        builder: (BuildContext context) =>  BuilderFeedList(
+                        builder: (BuildContext context) => BuilderFeedList(
                           key: UniqueKey(),
-                          feedUrl: channelList[index]['channelLink'],
+                          feedUrl:
+                              urlYoutube + channelList[index]['channelLinkId'],
                           channelName: channelList[index]['channelName'],
                           index: 0,
                         ),
                         fullscreenDialog: true,
                       ));
-                  },
-               // leading: Icon(Icons.video_collection_outlined),
-                title: Text(channelList[index]['channelName'],style: TextStyle(fontSize: 16),),
+                },
+                title: Text(
+                  channelList[index]['channelName'],
+                  style: TextStyle(fontSize: 16),
+                ),
                 trailing: Wrap(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.delete_outline,size: 20,),
+                      icon: Icon(
+                        Icons.delete_outline,
+                        size: 20,
+                      ),
                       splashRadius: 25,
                       onPressed: () {
-                        deleteChannel(channelList[index]['idChannel']);
-                        getAllChannels();
+                        showAlertDialogOkDelete(context, index);
                       },
                     ),
                     const SizedBox(
@@ -76,26 +118,43 @@ class _ChannelListState extends State<ChannelList> {
                         Navigator.push(
                             context,
                             MaterialPageRoute<void>(
-                              builder: (BuildContext context) => SaveEditChannel(
+                              builder: (BuildContext context) =>
+                                  SaveEditChannel(
                                 channelId: channelList[index]['idChannel'],
-                                channelLink: channelList[index]['channelLink'],
+                                channelLink: channelList[index]
+                                    ['channelLinkId'],
                                 channelName: channelList[index]['channelName'],
                                 edit: true,
                               ),
                               fullscreenDialog: true,
-                            ))
-                            .then((value) =>
-                            getAllChannels());
+                            )).then((value) => getAllChannels());
                       },
-                      icon: Icon(Icons.edit_outlined,size: 20,),
+                      icon: Icon(
+                        Icons.edit_outlined,
+                        size: 20,
+                      ),
                       splashRadius: 25,
                     ),
                   ],
                 ),
-
               );
             }),
       ]),
+      floatingActionButton: FloatingActionButton(
+        heroTag: null,
+        elevation: 1,
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => SaveEditChannel(
+                  edit: false,
+                ),
+                fullscreenDialog: true,
+              )).then((value) => getAllChannels());
+        },
+        child: Icon(Icons.add, color: Colors.white),
+      ),
     );
   }
 }

@@ -63,17 +63,6 @@ class AppInfoPage extends StatelessWidget {
               height: 0.1,
             ),
             title: Text(
-              "( This is The Way! )",
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-          ),
-          ListTile(
-            leading: SizedBox(
-              height: 0.1,
-            ),
-            title: Text(
               "Application created using Flutter and the Dart language, used for testing and learning.",
               style: TextStyle(
                 fontSize: 16,

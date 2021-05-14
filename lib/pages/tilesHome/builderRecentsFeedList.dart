@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
-import 'package:rssyoutubefschmtz/pages/tilesHome/containerItemHome.dart';
+import 'package:rssyoutubefschmtz/pages/tilesHome/videoCard.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 
@@ -60,10 +60,12 @@ class _BuilderRecentsFeedListState extends State<BuilderRecentsFeedList> {
         shrinkWrap: true,
         itemCount: 1,
         itemBuilder: (context, index) {
-          return ContainerItemHome(
+          return VideoCard(
+              showChannelName: true,
               feed: new Feed(
                 title: feedYoutube[index].title,
                 link: feedYoutube[index].links[0].href,
+                author: feedYoutube[index].authors[0].name,
                 data: feedYoutube[index].published,
                 linkImagem:
                 'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',

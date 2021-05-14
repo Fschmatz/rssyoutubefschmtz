@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rssyoutubefschmtz/db/channelDao.dart';
+import 'package:rssyoutubefschmtz/pages/channelList.dart';
 
 class SaveEditChannel extends StatefulWidget {
   bool edit;
@@ -19,15 +20,13 @@ class SaveEditChannel extends StatefulWidget {
 class _SaveEditChannelState extends State<SaveEditChannel> {
   TextEditingController customControllerChannelName = TextEditingController();
   TextEditingController customControllerChannelIdLink = TextEditingController();
-  String urlYoutube = 'https://www.youtube.com/feeds/videos.xml?channel_id=';
   final dbChannel = ChannelDao.instance;
 
   @override
   void initState() {
     if (widget.edit) {
       customControllerChannelName.text = widget.channelName;
-      customControllerChannelIdLink.text =
-          widget.channelLink.substring(urlYoutube.length);
+      customControllerChannelIdLink.text = widget.channelLink;
     }
     super.initState();
   }
@@ -35,19 +34,16 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
   void _saveChannel() async {
     Map<String, dynamic> row = {
       ChannelDao.columnChannelName: customControllerChannelName.text,
-      ChannelDao.columnChannelLink:
-          urlYoutube + customControllerChannelIdLink.text,
+      ChannelDao.columnChannelLinkId: customControllerChannelIdLink.text,
     };
     final id = await dbChannel.insert(row);
-    print('id = $id');
   }
 
   void _updateChannel() async {
     Map<String, dynamic> row = {
       ChannelDao.columnIdChannel: widget.channelId,
       ChannelDao.columnChannelName: customControllerChannelName.text,
-      ChannelDao.columnChannelLink:
-          urlYoutube + customControllerChannelIdLink.text,
+      ChannelDao.columnChannelLinkId: customControllerChannelIdLink.text,
     };
     final update = await dbChannel.update(row);
   }
@@ -55,10 +51,10 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
   String checkProblems() {
     String errors = "";
     if (customControllerChannelName.text.isEmpty) {
-      errors += "Insert Application Name\n";
+      errors += "Insert Channel Name\n";
     }
     if (customControllerChannelIdLink.text.isEmpty) {
-      errors += "Insert Description\n";
+      errors += "Insert Channel Id \n";
     }
     return errors;
   }
@@ -73,7 +69,6 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
         Navigator.of(context).pop();
       },
     );
-
     AlertDialog alert = AlertDialog(
       elevation: 3.0,
       title: Text(

@@ -16,6 +16,7 @@ class _RecentVideosFromAllState extends State<RecentVideosFromAll> {
   String currentFeed;
   final dbChannel = ChannelDao.instance;
   List<Map<String, dynamic>> channelList = [];
+  String urlYoutube = 'https://www.youtube.com/feeds/videos.xml?channel_id=';
 
   @override
   void initState() {
@@ -24,14 +25,14 @@ class _RecentVideosFromAllState extends State<RecentVideosFromAll> {
   }
 
   Future<void> getAllChannels() async {
-    var resp = await dbChannel.queryAllRows();
+    var resp = await dbChannel.queryAllOrderByChannelName();
     setState(() {
       channelList = resp;
     });
   }
 
   Future<void> getRssYoutubeData(int id) async {
-    currentFeed =channelList[id]['channelLink'];
+    currentFeed =  urlYoutube + channelList[id]['channelLinkId'];
   }
 
   @override

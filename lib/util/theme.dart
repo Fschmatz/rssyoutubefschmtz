@@ -47,10 +47,10 @@ ThemeData dark = ThemeData(
     accentColor: Color(0xFFDF5B51),
     scaffoldBackgroundColor: Color(0xFF202022),
     cardTheme: CardTheme(
-      color: Color(0xFF272729),
+      color: Color(0xFF29292B),
     ),
     dialogTheme: DialogTheme(
-      backgroundColor: Color(0xFF272729),
+      backgroundColor: Color(0xFF29292B),
     ),
     inputDecorationTheme: InputDecorationTheme(
         contentPadding:

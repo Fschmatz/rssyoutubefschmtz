@@ -12,9 +12,15 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home>{
 
+  final second = ChannelList();
+
+  void refresh(){
+    setState(() {});
+  }
+
   int _currentIndex = 0;
   final tabs = [
-    RecentVideosFromAll(), //key: UniqueKey(), ?
+    RecentVideosFromAll(),
     ChannelList(),
     SettingsPage(),
   ];
@@ -32,31 +38,11 @@ class _HomeState extends State<Home>{
         appBar: AppBar(
           elevation: 0,
           title: Text('RSS YouTube'),
-          actions: [
-            Visibility(
-              visible: _currentIndex == 1,
-              child: IconButton(
-                icon: Icon(Icons.add_outlined),
-                tooltip: 'Add Channel',
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => SaveEditChannel(
-                          edit: false,
-                        ),
-                        fullscreenDialog: true,
-                      ));
-                },
-              ),
-            ),
-          ],
         ),
         body: IndexedStack(
           index: _currentIndex,
           children: pageList,
         ),
-
 
       bottomNavigationBar: BottomNavigationBar(
       showSelectedLabels: true,

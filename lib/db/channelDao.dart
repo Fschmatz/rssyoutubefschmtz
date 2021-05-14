@@ -12,7 +12,7 @@ class ChannelDao {
   static final table = 'channel';
   static final columnIdChannel = 'idChannel';
   static final columnChannelName = 'channelName';
-  static final columnChannelLink = 'channelLink';
+  static final columnChannelLinkId = 'channelLinkId';
 
 
   ChannelDao._privateConstructor();
@@ -38,7 +38,7 @@ class ChannelDao {
           CREATE TABLE $table (
             $columnIdChannel INTEGER PRIMARY KEY,            
             $columnChannelName TEXT NOT NULL,
-            $columnChannelLink TEXT NOT NULL
+            $columnChannelLinkId TEXT NOT NULL
           )
           ''');
   }
@@ -51,6 +51,11 @@ class ChannelDao {
   Future<List<Map<String, dynamic>>> queryAllRows() async {
     Database db = await instance.database;
     return await db.query(table);
+  }
+
+  Future<List<Map<String, dynamic>>> queryAllOrderByChannelName() async {
+    Database db = await instance.database;
+    return await db.rawQuery('SELECT * FROM $table ORDER BY $columnChannelName');
   }
 
   Future<int> queryRowCount() async {

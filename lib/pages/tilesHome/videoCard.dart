@@ -4,12 +4,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:jiffy/jiffy.dart';
 
-class ContainerItemHome extends StatelessWidget {
+class VideoCard extends StatelessWidget {
   Feed feed;
+  bool showChannelName;
 
-  ContainerItemHome(
-      {Key key, this.feed})
-      : super(key: key);
+  VideoCard({Key key, this.feed, this.showChannelName}) : super(key: key);
 
   //URL LAUNCHER
   _launchBrowser(String url) async {
@@ -22,16 +21,15 @@ class ContainerItemHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    var dataFormatada = Jiffy(feed.data).format( "dd/MM/yyyy");
+    var dataFormatada = Jiffy(feed.data).format("dd/MM/yyyy");
 
     return Card(
       elevation: 2,
-      margin: const EdgeInsets.fromLTRB(15, 8, 15, 8),
+      margin: const EdgeInsets.fromLTRB(15, 5, 15, 10),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(15)),
         side: BorderSide(
-          color: Colors.grey[850],
+          color: Colors.grey[800],
           width: 1,
         ),
       ),
@@ -45,13 +43,12 @@ class ContainerItemHome extends StatelessWidget {
         child: Column(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(15), topLeft: Radius.circular(15)),
-              child: FadeInImage.assetNetwork(
-                image: feed.linkImagem,
-                placeholder:"assets/placeholder.jpg"
-              )
-            ),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(15),
+                    topLeft: Radius.circular(15)),
+                child: FadeInImage.assetNetwork(
+                    image: feed.linkImagem,
+                    placeholder: "assets/placeholder.jpg")),
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
               child: Container(
@@ -64,13 +61,35 @@ class ContainerItemHome extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+              padding: const EdgeInsets.all(10),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      dataFormatada,
-                      style: TextStyle(fontSize: 12,color: Theme.of(context).hintColor),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Visibility(
+                            visible: showChannelName,
+                            child: Text(
+                              feed.author,
+                              style: TextStyle(
+                                  fontSize: 13, color: Theme.of(context).hintColor),
+                            ),
+                          ),
+                          Visibility(
+                            visible:showChannelName,
+                            child: const SizedBox(
+                              height: 5,
+                            ),
+                          ),
+                          Text(
+                            dataFormatada,
+                            style: TextStyle(
+                                fontSize: 13, color: Theme.of(context).hintColor),
+                          ),
+                        ],
+                      ),
                     ),
                     IconButton(
                         icon: Icon(Icons.share_outlined),

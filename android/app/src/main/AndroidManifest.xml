@@ -8,7 +8,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="RssYoutube Fschmtz"
+        android:label="Rss Youtube Fschmtz"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
