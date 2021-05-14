@@ -1,13 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:rssyoutubefschmtz/classes/channelFeed.dart';
-import 'package:rssyoutubefschmtz/classes/feed.dart';
-import 'package:rssyoutubefschmtz/classes/feedListChannels.dart';
-import 'package:rssyoutubefschmtz/pages/tilesHome/builderFeedList.dart';
-import 'package:rssyoutubefschmtz/pages/tilesHome/containerItemHome.dart';
+import 'package:rssyoutubefschmtz/db/channelDao.dart';
+import 'package:rssyoutubefschmtz/pages/tilesHome/builderRecentsFeedList.dart';
 import 'package:webfeed/webfeed.dart';
-import 'package:http/http.dart' as http;
 
 class RecentVideosFromAll extends StatefulWidget {
   @override
@@ -17,40 +11,49 @@ class RecentVideosFromAll extends StatefulWidget {
 }
 
 class _RecentVideosFromAllState extends State<RecentVideosFromAll> {
-  bool carregando = true;
+
   Map<int, AtomItem> feedYoutube = new Map();
-  List<ChannelFeed> listChannels = new FeedListChannels().getFeedListChannels();
   String currentFeed;
+  final dbChannel = ChannelDao.instance;
+  List<Map<String, dynamic>> channelList = [];
 
   @override
   void initState() {
-    getRssYoutubeData(0);
+    getAllChannels();
     super.initState();
   }
 
-  //Feed do Youtube sempre será de 15 items
+  Future<void> getAllChannels() async {
+    var resp = await dbChannel.queryAllRows();
+    setState(() {
+      channelList = resp;
+    });
+  }
+
   Future<void> getRssYoutubeData(int id) async {
-      currentFeed = listChannels[id].linkFeed;
+    currentFeed =channelList[id]['channelLink'];
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return ListView(
       physics: AlwaysScrollableScrollPhysics(),
-      child: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: listChannels.length,
-        itemBuilder: (context, index) {
-          getRssYoutubeData(index);
-          return BuilderFeedList(
-            key: UniqueKey(),
-            feedUrl: currentFeed,
-            recents: true,
-            index: index,
-          );
-        },
-      ),
+      children: [
+        ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: channelList.length,
+          itemBuilder: (context, index) {
+            getRssYoutubeData(index);
+            return BuilderRecentsFeedList(
+              key: UniqueKey(),
+              feedUrl: currentFeed,
+              index: index,
+            );
+          },
+        ),
+      ],
     );
+
   }
 }

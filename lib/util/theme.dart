@@ -13,26 +13,70 @@ ThemeData light = ThemeData(
     dialogTheme: DialogTheme(
       backgroundColor: Color(0xFFF9F9FF),
     ),
+    inputDecorationTheme: InputDecorationTheme(
+        contentPadding:
+            new EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xFFDF5B51),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey.withOpacity(0.3),
+            ),
+            borderRadius: BorderRadius.circular(10.0)),
+        border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey.withOpacity(0.3),
+            ),
+            borderRadius: BorderRadius.circular(10.0))),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Color(0xFFE8E8EF),
+      selectedItemColor: Color(0xFFDF5B51),
+    ),
     bottomAppBarColor: Color(0xFFE8E8EF),
     bottomSheetTheme:
         BottomSheetThemeData(modalBackgroundColor: Color(0xFFE8E8EF)));
 
 //ESCURO
 ThemeData dark = ThemeData(
-  brightness: Brightness.dark,
-  primaryColor: Color(0xFF242425),
-  accentColor: Color(0xFFDF5B51),
-  scaffoldBackgroundColor: Color(0xFF242425),
-  cardTheme: CardTheme(
-    color: Color(0xFF363637),
-  ),
-  dialogTheme: DialogTheme(
-    backgroundColor: Color(0xFF272728),
-  ),
-  bottomAppBarColor: Color(0xFF171718),
+    brightness: Brightness.dark,
+    primaryColor: Color(0xFF202022),
+    accentColor: Color(0xFFDF5B51),
+    scaffoldBackgroundColor: Color(0xFF202022),
+    cardTheme: CardTheme(
+      color: Color(0xFF272729),
+    ),
+    dialogTheme: DialogTheme(
+      backgroundColor: Color(0xFF272729),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+        contentPadding:
+            new EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xFFDF5B51),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey.withOpacity(0.3),
+            ),
+            borderRadius: BorderRadius.circular(10.0)),
+        border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey.withOpacity(0.3),
+            ),
+            borderRadius: BorderRadius.circular(10.0))),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Color(0xFF161618),
+    ),
+    bottomAppBarColor: Color(0xFF161618),
     bottomSheetTheme:
-    BottomSheetThemeData(modalBackgroundColor: Color(0xFF242425))
-);
+        BottomSheetThemeData(modalBackgroundColor: Color(0xFF202022)));
 
 class ThemeNotifier extends ChangeNotifier {
   final String key = 'valorTema';

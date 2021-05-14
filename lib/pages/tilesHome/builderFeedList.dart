@@ -9,10 +9,10 @@ class BuilderFeedList extends StatefulWidget {
   _BuilderFeedListState createState() => _BuilderFeedListState();
 
   final String feedUrl;
-  final bool recents;
+  final String channelName;
   final int index;
 
-  BuilderFeedList({Key key, this.feedUrl, this.recents, this.index})
+  BuilderFeedList({Key key, this.feedUrl,this.channelName, this.index})
       : super(key: key);
 }
 
@@ -42,37 +42,58 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
 
   @override
   Widget build(BuildContext context) {
-    return carregando
-        ? Visibility(
-            visible: widget.index == 0,
-            child: PreferredSize(
-              preferredSize: Size.fromHeight(4.0),
-              child: LinearProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(
-                    Theme.of(context).accentColor.withOpacity(0.8)),
-                backgroundColor: Theme.of(context).accentColor.withOpacity(0.3),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.channelName),
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh_outlined),
+            tooltip: 'Refresh',
+            onPressed: () {
+              setState(() {
+                carregando = true;
+              });
+              getRssYoutubeData();
+            },
+          ),
+        ],
+      ),
+      body: carregando
+          ? Visibility(
+        visible: widget.index == 0,
+        child: PreferredSize(
+          preferredSize: Size.fromHeight(4.0),
+          child: LinearProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(
+                Theme.of(context).accentColor.withOpacity(0.8)),
+            backgroundColor: Theme.of(context).accentColor.withOpacity(0.3),
+          ),
+        ),
+      )
+          : ListView(
+        physics: AlwaysScrollableScrollPhysics(),
+            children: [
+              ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: feedYoutube.length,
+                    itemBuilder: (context, index) {
+                      return ContainerItemHome(
+                          feed: new Feed(
+                            title: feedYoutube[index].title,
+                            link: feedYoutube[index].links[0].href,
+                            data: feedYoutube[index].published,
+                            linkImagem:
+                            'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
+                          ));
+                    },
               ),
-            ),
-          )
-        : SingleChildScrollView(
-            physics: widget.recents
-                ? NeverScrollableScrollPhysics()
-                : AlwaysScrollableScrollPhysics(),
-            child: ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: widget.recents ? 1 : feedYoutube.length,
-              itemBuilder: (context, index) {
-                return ContainerItemHome(
-                    feed: new Feed(
-                  title: feedYoutube[index].title,
-                  link: feedYoutube[index].links[0].href,
-                  data: feedYoutube[index].published,
-                  linkImagem:
-                      'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
-                ));
-              },
-            ),
-          );
+              const SizedBox(
+                height: 30,
+              )
+            ],
+          ),
+    );
   }
 }

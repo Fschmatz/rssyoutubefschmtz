@@ -31,7 +31,7 @@ class ContainerItemHome extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(15)),
         side: BorderSide(
-          color: Colors.grey.withOpacity(0.3),
+          color: Colors.grey[850],
           width: 1,
         ),
       ),
@@ -59,7 +59,7 @@ class ContainerItemHome extends StatelessWidget {
                 child: Text(
                   feed.title,
                   textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 17.5),
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
             ),
@@ -70,7 +70,7 @@ class ContainerItemHome extends StatelessWidget {
                   children: [
                     Text(
                       dataFormatada,
-                      style: TextStyle(fontSize: 13.5,color: Theme.of(context).hintColor),
+                      style: TextStyle(fontSize: 12,color: Theme.of(context).hintColor),
                     ),
                     IconButton(
                         icon: Icon(Icons.share_outlined),

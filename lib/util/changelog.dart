@@ -1,20 +1,20 @@
-class NameChangelog{
+class Changelog{
 
-  //se mudar o nome do App não esquecer de alterar, no manifesto
-  static String versaoApp = "2.1.3";
-  static String nomeApp = "RSS Youtube Fschmtz";
+  static String appVersion = "3.0.0";
+  static String appName = "RSS YouTube Fschmtz";
 
-  //1 espaço acima, nenhum embaixo
-  static String changelogUltimaVersao = '''  
-  
-Versão Atual:  
+  static String changelogCurrent = '''  
+- Add Channel
+- Channel Database
+- New Settings Page
+- UI Changes
+- Pull Down to Refresh
+''';
 
+  static String changelogsOld = '''
 2.1.3
 - Fixes
 - Color Changes
-''';
-
-  static String changelogsAntigos = '''
 
 2.1.0
 - Recents Page
