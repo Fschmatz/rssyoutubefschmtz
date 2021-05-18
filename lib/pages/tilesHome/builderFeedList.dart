@@ -61,32 +61,33 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
       )
           : RefreshIndicator(
         onRefresh: () =>  getRssYoutubeData(),
-            child: ListView(
-        physics: AlwaysScrollableScrollPhysics(),
-              children: [
-                ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: feedYoutube.length,
-                      itemBuilder: (context, index) {
-                        return VideoCard(
-                          showChannelName: false,
-                            feed: new Feed(
-                              title: feedYoutube[index].title,
-                              link: feedYoutube[index].links[0].href,
-                              author: feedYoutube[index].authors[0].name,
-                              data: feedYoutube[index].published,
-                              linkImagem:
-                              'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
-                            ));
-                      },
-                ),
-                const SizedBox(
-                  height: 30,
-                )
-              ],
+        child: ListView(
+          physics: AlwaysScrollableScrollPhysics(),
+          children: [
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: feedYoutube.length,
+              itemBuilder: (context, index) {
+                return VideoCard(
+                    showChannelName: false,
+                    feed: new Feed(
+                      title: feedYoutube[index].title,
+                      link: feedYoutube[index].links[0].href,
+                      author: feedYoutube[index].authors[0].name,
+                      data: feedYoutube[index].published,
+                      linkImagem:
+                      'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
+                    ));
+              },
             ),
-          ),
+            const SizedBox(
+              height: 30,
+            )
+          ],
+        ),
+      ),
     );
   }
 }
+

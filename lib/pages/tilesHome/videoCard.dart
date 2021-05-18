@@ -24,14 +24,10 @@ class VideoCard extends StatelessWidget {
     var dataFormatada = Jiffy(feed.data).format("dd/MM/yyyy");
 
     return Card(
-      elevation: 2,
+      elevation: 3,
       margin: const EdgeInsets.fromLTRB(15, 5, 15, 10),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(15)),
-        side: BorderSide(
-          color: Colors.grey[800],
-          width: 1,
-        ),
       ),
       child: InkWell(
         customBorder: RoundedRectangleBorder(
@@ -50,7 +46,7 @@ class VideoCard extends StatelessWidget {
                     image: feed.linkImagem,
                     placeholder: "assets/placeholder.jpg")),
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(

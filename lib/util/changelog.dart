@@ -1,13 +1,14 @@
 class Changelog{
 
-  static String appVersion = "3.1.0";
+  static String appVersion = "3.1.1";
   static String appName = "RSS YouTube Fschmtz";
 
   static String changelogCurrent = '''
-3.1.0  
+3.1.1  
 - Small Fixes
 - Delete Dialog
 - Order By Channel Name
+- UI Changes
 ''';
 
   static String changelogsOld = '''

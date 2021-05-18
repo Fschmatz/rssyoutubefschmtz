@@ -47,10 +47,10 @@ ThemeData dark = ThemeData(
     accentColor: Color(0xFFDF5B51),
     scaffoldBackgroundColor: Color(0xFF202022),
     cardTheme: CardTheme(
-      color: Color(0xFF29292B),
+      color: Color(0xFF28282A),
     ),
     dialogTheme: DialogTheme(
-      backgroundColor: Color(0xFF29292B),
+      backgroundColor: Color(0xFF28282A),
     ),
     inputDecorationTheme: InputDecorationTheme(
         contentPadding:
@@ -72,9 +72,9 @@ ThemeData dark = ThemeData(
             ),
             borderRadius: BorderRadius.circular(10.0))),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Color(0xFF161618),
+      backgroundColor: Color(0xFF171719),
     ),
-    bottomAppBarColor: Color(0xFF161618),
+    bottomAppBarColor: Color(0xFF171719),
     bottomSheetTheme:
         BottomSheetThemeData(modalBackgroundColor: Color(0xFF202022)));
 

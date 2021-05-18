@@ -174,15 +174,14 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       side: BorderSide(
-                        color: Colors.grey[850],
-                        width: 1,
+                        color: Colors.grey[600].withOpacity(0.5),
                       ),
                     ),
                     child: ListTile(
                         contentPadding:
                             const EdgeInsets.fromLTRB(15, 10, 15, 10),
                         title: Text(
-                          "Example of Channel Id:\n\nOpen the channel page and copy the code after the ' = ' symbol. ",
+                          "How to get the Channel Id:\n\nOpen the channel page in the browser and copy the code after the ' = ' symbol.",
                           style: TextStyle(
                               fontSize: 16,
                               color:

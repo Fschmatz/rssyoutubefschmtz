@@ -87,7 +87,7 @@ class _ChannelListState extends State<ChannelList> {
                         builder: (BuildContext context) => BuilderFeedList(
                           key: UniqueKey(),
                           feedUrl:
-                              urlYoutube + channelList[index]['channelLinkId'],
+                          urlYoutube + channelList[index]['channelLinkId'],
                           channelName: channelList[index]['channelName'],
                           index: 0,
                         ),
@@ -104,15 +104,14 @@ class _ChannelListState extends State<ChannelList> {
                       icon: Icon(
                         Icons.delete_outline,
                         size: 20,
+                        color: Theme.of(context).hintColor,
                       ),
                       splashRadius: 25,
                       onPressed: () {
                         showAlertDialogOkDelete(context, index);
                       },
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10,),
                     IconButton(
                       onPressed: () {
                         Navigator.push(
@@ -120,18 +119,19 @@ class _ChannelListState extends State<ChannelList> {
                             MaterialPageRoute<void>(
                               builder: (BuildContext context) =>
                                   SaveEditChannel(
-                                channelId: channelList[index]['idChannel'],
-                                channelLink: channelList[index]
+                                    channelId: channelList[index]['idChannel'],
+                                    channelLink: channelList[index]
                                     ['channelLinkId'],
-                                channelName: channelList[index]['channelName'],
-                                edit: true,
-                              ),
+                                    channelName: channelList[index]['channelName'],
+                                    edit: true,
+                                  ),
                               fullscreenDialog: true,
                             )).then((value) => getAllChannels());
                       },
                       icon: Icon(
                         Icons.edit_outlined,
                         size: 20,
+                        color: Theme.of(context).hintColor,
                       ),
                       splashRadius: 25,
                     ),
@@ -158,3 +158,4 @@ class _ChannelListState extends State<ChannelList> {
     );
   }
 }
+
