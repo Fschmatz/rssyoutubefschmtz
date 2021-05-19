@@ -72,9 +72,9 @@ ThemeData dark = ThemeData(
             ),
             borderRadius: BorderRadius.circular(10.0))),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Color(0xFF171719),
+      backgroundColor: Color(0xFF151517),
     ),
-    bottomAppBarColor: Color(0xFF171719),
+    bottomAppBarColor: Color(0xFF151517),
     bottomSheetTheme:
         BottomSheetThemeData(modalBackgroundColor: Color(0xFF202022)));
 

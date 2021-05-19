@@ -23,25 +23,16 @@ class VideoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var dataFormatada = Jiffy(feed.data).format("dd/MM/yyyy");
 
-    return Card(
-      elevation: 3,
-      margin: const EdgeInsets.fromLTRB(15, 5, 15, 10),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
-      child: InkWell(
-        customBorder: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-        ),
-        onTap: () {
-          _launchBrowser(feed.link.toString());
-        },
+    return InkWell(
+      onTap: () {
+        _launchBrowser(feed.link.toString());
+      },
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
         child: Column(
           children: [
             ClipRRect(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(15),
-                    topLeft: Radius.circular(15)),
+                borderRadius: BorderRadius.all(Radius.circular(15)),
                 child: FadeInImage.assetNetwork(
                     image: feed.linkImagem,
                     placeholder: "assets/placeholder.jpg")),
@@ -104,3 +95,4 @@ class VideoCard extends StatelessWidget {
     );
   }
 }
+

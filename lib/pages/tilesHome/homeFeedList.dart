@@ -4,18 +4,18 @@ import 'package:rssyoutubefschmtz/pages/tilesHome/videoCard.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 
-class BuilderRecentsFeedList extends StatefulWidget {
+class HomeFeedList extends StatefulWidget {
   @override
-  _BuilderRecentsFeedListState createState() => _BuilderRecentsFeedListState();
+  _HomeFeedListState createState() => _HomeFeedListState();
 
   final String feedUrl;
   final int index;
 
-  BuilderRecentsFeedList({Key key, this.feedUrl, this.index})
+  HomeFeedList({Key key, this.feedUrl, this.index})
       : super(key: key);
 }
 
-class _BuilderRecentsFeedListState extends State<BuilderRecentsFeedList> {
+class _HomeFeedListState extends State<HomeFeedList> {
   bool carregando = true;
   Map<int, AtomItem> feedYoutube = new Map();
 

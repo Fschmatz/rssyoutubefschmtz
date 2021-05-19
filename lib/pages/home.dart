@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:rssyoutubefschmtz/pages/channelList.dart';
 import 'package:rssyoutubefschmtz/pages/saveEditChannel.dart';
-import 'package:rssyoutubefschmtz/pages/tilesHome/recentVideosFromAll.dart';
+import 'package:rssyoutubefschmtz/pages/tilesHome/homeBuilder.dart';
 import 'package:rssyoutubefschmtz/settings/settingsPage.dart';
 
 class Home extends StatefulWidget {
@@ -20,7 +20,7 @@ class _HomeState extends State<Home>{
 
   int _currentIndex = 0;
   final tabs = [
-    RecentVideosFromAll(),
+    HomeBuilder(),
     ChannelList(),
     SettingsPage(),
   ];
@@ -30,7 +30,7 @@ class _HomeState extends State<Home>{
   @override
   Widget build(BuildContext context) {
 
-    pageList.add(RecentVideosFromAll());
+    pageList.add(HomeBuilder());
     pageList.add(ChannelList());
     pageList.add(SettingsPage());
 
@@ -60,7 +60,7 @@ class _HomeState extends State<Home>{
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.video_collection_outlined),
+          icon: Icon(Icons.subscriptions_outlined),
           label: 'Channels',
         ),
         BottomNavigationBarItem(

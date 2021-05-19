@@ -11,7 +11,7 @@ class ChannelList extends StatefulWidget {
 }
 
 class _ChannelListState extends State<ChannelList> {
-  final dbChannel = ChannelDao.instance;
+
   List<Map<String, dynamic>> channelList = [];
   String urlYoutube = 'https://www.youtube.com/feeds/videos.xml?channel_id=';
 
@@ -21,53 +21,14 @@ class _ChannelListState extends State<ChannelList> {
     super.initState();
   }
 
-  void deleteChannel(int id) async {
-    final delete = await dbChannel.delete(id);
-  }
-
   Future<void> getAllChannels() async {
+    final dbChannel = ChannelDao.instance;
     var resp = await dbChannel.queryAllOrderByChannelName();
     setState(() {
       channelList = resp;
     });
   }
 
-  showAlertDialogOkDelete(BuildContext context, int index) {
-    Widget okButton = TextButton(
-      child: Text(
-        "Yes",
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      ),
-      onPressed: () {
-        deleteChannel(channelList[index]['idChannel']);
-        getAllChannels();
-        Navigator.of(context).pop();
-      },
-    );
-
-    AlertDialog alert = AlertDialog(
-      elevation: 3.0,
-      title: Text(
-        "Confirmation ", //
-        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-      ),
-      content: Text(
-        "\nDelete Channel ?",
-        style: TextStyle(
-          fontSize: 18,
-        ),
-      ),
-      actions: [
-        okButton,
-      ],
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,52 +51,17 @@ class _ChannelListState extends State<ChannelList> {
                           urlYoutube + channelList[index]['channelLinkId'],
                           channelName: channelList[index]['channelName'],
                           index: 0,
+                          channelId: channelList[index]['idChannel'],
+                          refreshList: getAllChannels,
+                          channelLink: channelList[index]['channelLinkId'],
                         ),
                         fullscreenDialog: true,
                       ));
                 },
+                leading: Icon(Icons.video_collection_outlined),
                 title: Text(
                   channelList[index]['channelName'],
                   style: TextStyle(fontSize: 16),
-                ),
-                trailing: Wrap(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.delete_outline,
-                        size: 20,
-                        color: Theme.of(context).hintColor,
-                      ),
-                      splashRadius: 25,
-                      onPressed: () {
-                        showAlertDialogOkDelete(context, index);
-                      },
-                    ),
-                    const SizedBox(width: 10,),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) =>
-                                  SaveEditChannel(
-                                    channelId: channelList[index]['idChannel'],
-                                    channelLink: channelList[index]
-                                    ['channelLinkId'],
-                                    channelName: channelList[index]['channelName'],
-                                    edit: true,
-                                  ),
-                              fullscreenDialog: true,
-                            )).then((value) => getAllChannels());
-                      },
-                      icon: Icon(
-                        Icons.edit_outlined,
-                        size: 20,
-                        color: Theme.of(context).hintColor,
-                      ),
-                      splashRadius: 25,
-                    ),
-                  ],
                 ),
               );
             }),

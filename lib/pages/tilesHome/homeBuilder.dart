@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/db/channelDao.dart';
-import 'package:rssyoutubefschmtz/pages/tilesHome/builderRecentsFeedList.dart';
+import 'package:rssyoutubefschmtz/pages/tilesHome/homeFeedList.dart';
 import 'package:webfeed/webfeed.dart';
 
-class RecentVideosFromAll extends StatefulWidget {
+class HomeBuilder extends StatefulWidget {
   @override
-  _RecentVideosFromAllState createState() => _RecentVideosFromAllState();
+  _HomeBuilderState createState() => _HomeBuilderState();
 
-  RecentVideosFromAll({Key key}) : super(key: key);
+  HomeBuilder({Key key}) : super(key: key);
 }
 
-class _RecentVideosFromAllState extends State<RecentVideosFromAll> {
+class _HomeBuilderState extends State<HomeBuilder> {
 
   Map<int, AtomItem> feedYoutube = new Map();
   String currentFeed;
@@ -42,13 +42,14 @@ class _RecentVideosFromAllState extends State<RecentVideosFromAll> {
       child: ListView(
         physics: AlwaysScrollableScrollPhysics(),
         children: [
-          ListView.builder(
+          ListView.separated(
+            separatorBuilder: (context, index) => const Divider(),
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: channelList.length,
             itemBuilder: (context, index) {
               getRssYoutubeData(index);
-              return BuilderRecentsFeedList(
+              return HomeFeedList(
                 key: UniqueKey(),
                 feedUrl: currentFeed,
                 index: index,
