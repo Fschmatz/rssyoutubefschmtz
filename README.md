@@ -1,10 +1,6 @@
-# RssYoutube Fschmtz
+# Rss Youtube Fschmtz
 
-Aplicativo feito para TESTE na leitura de Feeds Rss.
-Somente possui alguns canais hardcoded.
+Flutter app to view rss feed from YouTube channels.
 
-Criado com o Android em mente, não foi testado para IOS.
 
-APK compartilhado nos releases.
-
-<img src="https://user-images.githubusercontent.com/21291813/110397175-1d2a9100-8050-11eb-9634-8bf9f67b8bbf.png" width="30%"></img> 
+<img src="https://user-images.githubusercontent.com/21291813/118342925-072bc780-b4fc-11eb-995d-d9556e953548.png" width="30%"></img> 
