@@ -163,6 +163,7 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
                     itemCount: feedYoutube.length,
                     itemBuilder: (context, index) {
                       return FadeInUp(
+                        duration: Duration(milliseconds: 600),
                         child: VideoCard(
                             showChannelName: false,
                             feed: new Feed(

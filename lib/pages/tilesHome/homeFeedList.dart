@@ -62,6 +62,7 @@ class _HomeFeedListState extends State<HomeFeedList> {
         itemCount: 1,
         itemBuilder: (context, index) {
           return FadeInUp(
+            duration: Duration(milliseconds: 600),
             child: VideoCard(
                 showChannelName: true,
                 feed: new Feed(
