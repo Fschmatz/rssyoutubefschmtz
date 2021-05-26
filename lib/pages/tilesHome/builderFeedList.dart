@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
 import 'package:rssyoutubefschmtz/db/channelDao.dart';
@@ -156,22 +157,23 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
               child: ListView(
                 physics: AlwaysScrollableScrollPhysics(),
                 children: [
-                  ListView.separated(
-                    separatorBuilder: (context, index) => const Divider(),
+                  ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: feedYoutube.length,
                     itemBuilder: (context, index) {
-                      return VideoCard(
-                          showChannelName: false,
-                          feed: new Feed(
-                            title: feedYoutube[index].title,
-                            link: feedYoutube[index].links[0].href,
-                            author: feedYoutube[index].authors[0].name,
-                            data: feedYoutube[index].published,
-                            linkImagem:
-                                'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
-                          ));
+                      return FadeInUp(
+                        child: VideoCard(
+                            showChannelName: false,
+                            feed: new Feed(
+                              title: feedYoutube[index].title,
+                              link: feedYoutube[index].links[0].href,
+                              author: feedYoutube[index].authors[0].name,
+                              data: feedYoutube[index].published,
+                              linkImagem:
+                                  'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
+                            )),
+                      );
                     },
                   ),
                   const SizedBox(

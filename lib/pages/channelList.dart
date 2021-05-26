@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/db/channelDao.dart';
 import 'package:rssyoutubefschmtz/pages/saveEditChannel.dart';
 import 'package:rssyoutubefschmtz/pages/tilesHome/builderFeedList.dart';
+import 'package:share/share.dart';
 
 class ChannelList extends StatefulWidget {
   ChannelList({Key key}) : super(key: key);
@@ -14,6 +15,7 @@ class _ChannelListState extends State<ChannelList> {
 
   List<Map<String, dynamic>> channelList = [];
   String urlYoutube = 'https://www.youtube.com/feeds/videos.xml?channel_id=';
+  String urlShareChannel = 'https://www.youtube.com/channel/';
 
   @override
   void initState() {
@@ -41,6 +43,7 @@ class _ChannelListState extends State<ChannelList> {
             itemCount: channelList.length,
             itemBuilder: (context, index) {
               return ListTile(
+                contentPadding: const EdgeInsets.fromLTRB(16, 0, 10, 0),
                 onTap: () {
                   Navigator.push(
                       context,
@@ -63,7 +66,15 @@ class _ChannelListState extends State<ChannelList> {
                   channelList[index]['channelName'],
                   style: TextStyle(fontSize: 16),
                 ),
-              );
+                trailing: IconButton(
+                  icon: Icon(Icons.share_outlined),
+                  color: Theme.of(context).hintColor,
+                  constraints: BoxConstraints(),
+                  splashRadius: 28,
+                  onPressed: () {
+                    Share.share(urlShareChannel+ channelList[index]['channelLinkId']);
+                  }),
+                );
             }),
       ]),
       floatingActionButton: FloatingActionButton(

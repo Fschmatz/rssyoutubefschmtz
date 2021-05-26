@@ -103,7 +103,7 @@ class AppInfoPage extends StatelessWidget {
             leading: Icon(Icons.messenger_outline),
             title: Text(
               "No one in the brief history of computing has ever written a piece of perfect software. It’s unlikely that you’ll be the first.\nAndy Hunt ",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: 16),
             ),
           ),
         ]));

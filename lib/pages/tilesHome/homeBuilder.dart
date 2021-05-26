@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/db/channelDao.dart';
 import 'package:rssyoutubefschmtz/pages/tilesHome/homeFeedList.dart';
@@ -42,8 +43,7 @@ class _HomeBuilderState extends State<HomeBuilder> {
       child: ListView(
         physics: AlwaysScrollableScrollPhysics(),
         children: [
-          ListView.separated(
-            separatorBuilder: (context, index) => const Divider(),
+          ListView.builder(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: channelList.length,

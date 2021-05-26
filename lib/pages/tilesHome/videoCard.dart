@@ -31,11 +31,20 @@ class VideoCard extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
         child: Column(
           children: [
-            ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                child: FadeInImage.assetNetwork(
-                    image: feed.linkImagem,
-                    placeholder: "assets/placeholder.jpg")),
+            Card(
+              elevation: 1,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+                side: BorderSide(
+                  color: Colors.grey[850],
+                ),
+              ),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  child: FadeInImage.assetNetwork(
+                      image: feed.linkImagem,
+                      placeholder: "assets/placeholder.jpg")),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: Container(

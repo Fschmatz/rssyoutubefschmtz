@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
 import 'package:rssyoutubefschmtz/pages/tilesHome/videoCard.dart';
@@ -60,16 +61,18 @@ class _HomeFeedListState extends State<HomeFeedList> {
         shrinkWrap: true,
         itemCount: 1,
         itemBuilder: (context, index) {
-          return VideoCard(
-              showChannelName: true,
-              feed: new Feed(
-                title: feedYoutube[index].title,
-                link: feedYoutube[index].links[0].href,
-                author: feedYoutube[index].authors[0].name,
-                data: feedYoutube[index].published,
-                linkImagem:
-                'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
-              ));
+          return FadeInUp(
+            child: VideoCard(
+                showChannelName: true,
+                feed: new Feed(
+                  title: feedYoutube[index].title,
+                  link: feedYoutube[index].links[0].href,
+                  author: feedYoutube[index].authors[0].name,
+                  data: feedYoutube[index].published,
+                  linkImagem:
+                  'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
+                )),
+          );
         },
       ),
     );
