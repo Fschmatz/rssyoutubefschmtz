@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rssyoutubefschmtz/db/channelDao.dart';
-import 'package:rssyoutubefschmtz/pages/channelList.dart';
+import 'package:rssyoutubefschmtz/db/channel_dao.dart';
+import 'package:rssyoutubefschmtz/pages/channel_list.dart';
 
 class SaveEditChannel extends StatefulWidget {
-  bool edit;
-  int channelId;
-  String channelName;
-  String channelLink;
+  bool? edit;
+  int? channelId;
+  String? channelName;
+  String? channelLink;
 
   SaveEditChannel(
-      {Key key, this.edit, this.channelId, this.channelLink, this.channelName})
+      {required Key key, this.edit, this.channelId, this.channelLink, this.channelName})
       : super(key: key);
 
   @override
@@ -24,14 +24,18 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
 
   @override
   void initState() {
-    if (widget.edit) {
-      customControllerChannelName.text = widget.channelName;
-      customControllerChannelIdLink.text = widget.channelLink;
+    if (widget.edit!) {
+      customControllerChannelName.text = widget.channelName!;
+      customControllerChannelIdLink.text = widget.channelLink!;
     }
     super.initState();
   }
 
   void _saveChannel() async {
+
+    print(customControllerChannelName.text,);
+    print(customControllerChannelIdLink.text,);
+
     Map<String, dynamic> row = {
       ChannelDao.columnChannelName: customControllerChannelName.text,
       ChannelDao.columnChannelLinkId: customControllerChannelIdLink.text,
@@ -61,7 +65,7 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
 
   showAlertDialogErrors(BuildContext context) {
     Widget okButton = TextButton(
-      child: Text(
+      child: const Text(
         "Ok",
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
@@ -71,13 +75,13 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
     );
     AlertDialog alert = AlertDialog(
       elevation: 3.0,
-      title: Text(
+      title: const Text(
         "Error",
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       content: Text(
         checkProblems(),
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
         ),
       ),
@@ -97,17 +101,17 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Add Channel"),
+          title: const Text("Add Channel"),
           elevation: 0,
           actions: [
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
               child: IconButton(
-                icon: Icon(Icons.save_outlined),
+                icon: const Icon(Icons.save_outlined),
                 tooltip: 'Save',
                 onPressed: () {
                   if (checkProblems().isEmpty) {
-                    if (!widget.edit) {
+                    if (!widget.edit!) {
                       _saveChannel();
                       Navigator.of(context).pop();
                     } else {
@@ -123,7 +127,7 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
           ],
         ),
         body: SingleChildScrollView(
-            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -136,12 +140,12 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
                     textCapitalization: TextCapitalization.sentences,
                     keyboardType: TextInputType.name,
                     controller: customControllerChannelName,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.article_outlined, size: 20),
                       hintText: "Channel Name",
                       helperText: "* Required",
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
@@ -156,12 +160,12 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
                     textCapitalization: TextCapitalization.sentences,
                     keyboardType: TextInputType.name,
                     controller: customControllerChannelIdLink,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.article_outlined, size: 20),
                       hintText: "Channel Id",
                       helperText: "* Required",
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
@@ -172,20 +176,20 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
                     elevation: 0,
                     color: Theme.of(context).scaffoldBackgroundColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       side: BorderSide(
-                        color: Colors.grey[600].withOpacity(0.5),
+                        color: Colors.grey[600]!.withOpacity(0.5),
                       ),
                     ),
                     child: ListTile(
                         contentPadding:
                             const EdgeInsets.fromLTRB(15, 10, 15, 10),
                         title: Text(
-                          "How to get the Channel Id:\n\nOpen the channel page in the browser and copy the code after the ' = ' symbol.",
+                          "How to get the Channel Id:\n\nOpen the channel page in the browser and copy the code after the ' = ' symbol.\n\nIf unavailable, open the page source code and search for externalId.",
                           style: TextStyle(
                               fontSize: 16,
                               color:
-                                  Theme.of(context).textTheme.headline6.color.withOpacity(0.9)),
+                                  Theme.of(context).textTheme.headline6!.color!.withOpacity(0.9)),
                         )),
                   )
                 ])));

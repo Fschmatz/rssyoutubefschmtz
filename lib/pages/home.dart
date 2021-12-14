@@ -1,75 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:rssyoutubefschmtz/pages/channelList.dart';
-import 'package:rssyoutubefschmtz/pages/saveEditChannel.dart';
-import 'package:rssyoutubefschmtz/pages/tilesHome/homeBuilder.dart';
-import 'package:rssyoutubefschmtz/settings/settingsPage.dart';
+import 'package:rssyoutubefschmtz/pages/channel_list.dart';
+import 'package:rssyoutubefschmtz/pages/home/home_builder.dart';
+import 'package:rssyoutubefschmtz/settings/settings_page.dart';
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home>{
-
-  final second = ChannelList();
-
-  void refresh(){
-    setState(() {});
-  }
-
+class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final tabs = [
-    HomeBuilder(),
-    ChannelList(),
-    SettingsPage(),
+    HomeBuilder(
+      key: UniqueKey(),
+    ),
+    ChannelList(
+      key: UniqueKey(),
+    ),
   ];
-
-  List<Widget> pageList = [];
 
   @override
   Widget build(BuildContext context) {
-
-    pageList.add(HomeBuilder());
-    pageList.add(ChannelList());
-    pageList.add(SettingsPage());
-
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text('RSS YouTube'),
+          title: const Text('RSS YouTube'),
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.settings_outlined,
+                  color: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .color!
+                      .withOpacity(0.8),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => const SettingsPage(),
+                        fullscreenDialog: true,
+                      ));
+                }),
+          ],
         ),
         body: IndexedStack(
           index: _currentIndex,
-          children: pageList,
+          children: tabs,
         ),
-
-      bottomNavigationBar: BottomNavigationBar(
-      showSelectedLabels: true,
-      showUnselectedLabels: false,
-      currentIndex: _currentIndex,
-      elevation: 0.0,
-      onTap: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.subscriptions_outlined),
-          label: 'Channels',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings_outlined),
-          label: 'Settings',
-        ),
-      ],
-    ),
-
-    );
+        bottomNavigationBar: NavigationBar(
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          animationDuration: const Duration(seconds: 1),
+          selectedIndex: _currentIndex,
+          onDestinationSelected: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.black87,
+              ),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.subscriptions_outlined),
+              selectedIcon: Icon(
+                Icons.subscriptions,
+                color: Colors.black87,
+              ),
+              label: 'Channels',
+            ),
+          ],
+        ));
   }
 }

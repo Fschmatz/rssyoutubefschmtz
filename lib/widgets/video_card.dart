@@ -8,7 +8,7 @@ class VideoCard extends StatelessWidget {
   Feed feed;
   bool showChannelName;
 
-  VideoCard({Key key, this.feed, this.showChannelName}) : super(key: key);
+  VideoCard({required Key key,required this.feed,required this.showChannelName}) : super(key: key);
 
   //URL LAUNCHER
   _launchBrowser(String url) async {
@@ -34,13 +34,13 @@ class VideoCard extends StatelessWidget {
             Card(
               elevation: 1,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(12),
                 side: BorderSide(
-                  color: Colors.grey[850],
+                  color: Colors.grey[850]!,
                 ),
               ),
               child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderRadius: const BorderRadius.all(const Radius.circular(12)),
                   child: FadeInImage.assetNetwork(
                       image: feed.linkImagem,
                       placeholder: "assets/placeholder.jpg")),
@@ -52,7 +52,7 @@ class VideoCard extends StatelessWidget {
                 child: Text(
                   feed.title,
                   textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ),
@@ -88,9 +88,9 @@ class VideoCard extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                        icon: Icon(Icons.share_outlined),
+                        icon: const Icon(Icons.share_outlined),
                         color: Theme.of(context).hintColor,
-                        constraints: BoxConstraints(),
+                        constraints: const BoxConstraints(),
                         iconSize: 22,
                         splashRadius: 28,
                         onPressed: () {

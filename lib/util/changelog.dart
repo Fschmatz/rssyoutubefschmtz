@@ -1,15 +1,21 @@
 class Changelog{
 
-  static String appVersion = "3.2.0";
-  static String appName = "RSS YouTube Fschmtz";
+  static String appVersion = "4.0.0";
+  static String appName = "RSS YouTube Fschmatz";
 
   static String changelogCurrent = '''
-3.2.0  
-- Animations!
-- Share Channel
+4.0.0
+- Material You NavBar
+- Dart Lints
+- Null Safety
+- Bug Fixes  
 ''';
 
   static String changelogsOld = '''
+3.2.0  
+- Animations!
+- Share Channel
+
 3.1.2  
 - Small Fixes
 - Delete Dialog

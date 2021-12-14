@@ -6,5 +6,5 @@ class Feed {
   final String data;
   final String linkImagem;
 
-  Feed({this.title,this.link,this.data,this.linkImagem,this.author});
+  Feed({required this.title,required this.link,required this.data,required this.linkImagem,required this.author});
 }

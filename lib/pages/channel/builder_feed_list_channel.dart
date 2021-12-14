@@ -1,15 +1,15 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
-import 'package:rssyoutubefschmtz/db/channelDao.dart';
+import 'package:rssyoutubefschmtz/db/channel_dao.dart';
 import 'package:rssyoutubefschmtz/pages/saveEditChannel.dart';
-import 'package:rssyoutubefschmtz/pages/tilesHome/videoCard.dart';
+import 'package:rssyoutubefschmtz/widgets/video_card.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 
-class BuilderFeedList extends StatefulWidget {
+class BuilderFeedListChannel extends StatefulWidget {
   @override
-  _BuilderFeedListState createState() => _BuilderFeedListState();
+  _BuilderFeedListChannelState createState() => _BuilderFeedListChannelState();
 
   final String feedUrl;
   final String channelName;
@@ -19,20 +19,20 @@ class BuilderFeedList extends StatefulWidget {
   String channelLink;
   Function() refreshList;
 
-  BuilderFeedList(
-      {Key key,
-      this.feedUrl,
-      this.channelName,
-      this.index,
-      this.channelId,
-      this.channelLink,
-      this.refreshList})
+  BuilderFeedListChannel(
+      {required Key key,
+      required this.feedUrl,
+      required this.channelName,
+      required this.index,
+      required this.channelId,
+      required this.channelLink,
+      required this.refreshList})
       : super(key: key);
 }
 
-class _BuilderFeedListState extends State<BuilderFeedList> {
+class _BuilderFeedListChannelState extends State<BuilderFeedListChannel> {
   bool carregando = true;
-  Map<int, AtomItem> feedYoutube = new Map();
+  Map<int, AtomItem> feedYoutube = {};
 
   @override
   void initState() {
@@ -43,11 +43,11 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
   //Feed do Youtube sempre será de 15 items
   Future<void> getRssYoutubeData() async {
     var client = http.Client();
-    var response = await client.get(widget.feedUrl);
+    var response = await client.get(Uri.parse(widget.feedUrl));
     var channel = AtomFeed.parse(response.body);
     if (mounted) {
       setState(() {
-        feedYoutube = channel.items.asMap();
+        feedYoutube = channel.items!.asMap();
         carregando = false;
       });
     }
@@ -61,7 +61,7 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
 
   showAlertDialogOkDelete(BuildContext context) {
     Widget okButton = TextButton(
-      child: Text(
+      child: const Text(
         "Yes",
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
@@ -75,11 +75,11 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
 
     AlertDialog alert = AlertDialog(
       elevation: 3.0,
-      title: Text(
+      title: const Text(
         "Confirmation ", //
         style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
       ),
-      content: Text(
+      content: const Text(
         "\nDelete Channel ?",
         style: TextStyle(
           fontSize: 18,
@@ -99,6 +99,7 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.channelName),
@@ -126,6 +127,7 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
                           channelLink: widget.channelLink,
                           channelName: widget.channelName,
                           edit: true,
+                          key: UniqueKey(),
                         ),
                         fullscreenDialog: true,
                       ))
@@ -143,45 +145,49 @@ class _BuilderFeedListState extends State<BuilderFeedList> {
           ? Visibility(
               visible: widget.index == 0,
               child: PreferredSize(
-                preferredSize: Size.fromHeight(4.0),
+                preferredSize: const Size.fromHeight(4.0),
                 child: LinearProgressIndicator(
-                  valueColor: new AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).accentColor.withOpacity(0.8)),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).colorScheme.primary.withOpacity(0.8)),
                   backgroundColor:
-                      Theme.of(context).accentColor.withOpacity(0.3),
+                      Theme.of(context).colorScheme.primary.withOpacity(0.3),
                 ),
               ),
             )
           : RefreshIndicator(
               onRefresh: () => getRssYoutubeData(),
-              child: ListView(
-                physics: AlwaysScrollableScrollPhysics(),
-                children: [
-                  ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: feedYoutube.length,
-                    itemBuilder: (context, index) {
-                      return FadeInUp(
-                        duration: Duration(milliseconds: 600),
-                        child: VideoCard(
-                            showChannelName: false,
-                            feed: new Feed(
-                              title: feedYoutube[index].title,
-                              link: feedYoutube[index].links[0].href,
-                              author: feedYoutube[index].authors[0].name,
-                              data: feedYoutube[index].published,
-                              linkImagem:
-                                  'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
-                            )),
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  )
-                ],
-              ),
+              child: feedYoutube.isEmpty
+                  ? const SizedBox.shrink()
+                  : ListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      children: [
+                        ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: feedYoutube.length,
+                          itemBuilder: (context, index) {
+                            return FadeInUp(
+                              duration: const Duration(milliseconds: 600),
+                              child: VideoCard(
+                                showChannelName: false,
+                                feed: Feed(
+                                  title: feedYoutube[index]!.title!,
+                                  link: feedYoutube[index]!.links![0].href!,
+                                  author: feedYoutube[index]!.authors![0].name!,
+                                  data: feedYoutube[index]!.published!,
+                                  linkImagem:
+                                      'https://i.ytimg.com/vi/${feedYoutube[index]!.id!.substring(9)}/hq720.jpg',
+                                ),
+                                key: UniqueKey(),
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        )
+                      ],
+                    ),
             ),
     );
   }

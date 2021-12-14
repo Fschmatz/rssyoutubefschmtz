@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
-import 'package:rssyoutubefschmtz/pages/tilesHome/videoCard.dart';
+import 'package:rssyoutubefschmtz/widgets/video_card.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,13 +12,13 @@ class HomeFeedList extends StatefulWidget {
   final String feedUrl;
   final int index;
 
-  HomeFeedList({Key key, this.feedUrl, this.index})
+  const HomeFeedList({required Key key,required this.feedUrl,required this.index})
       : super(key: key);
 }
 
 class _HomeFeedListState extends State<HomeFeedList> {
   bool carregando = true;
-  Map<int, AtomItem> feedYoutube = new Map();
+  Map<int, AtomItem> feedYoutube = {};
 
   @override
   void initState() {
@@ -29,11 +29,11 @@ class _HomeFeedListState extends State<HomeFeedList> {
   //Feed do Youtube sempre será de 15 items
   Future<void> getRssYoutubeData() async {
     var client = http.Client();
-    var response = await client.get(widget.feedUrl);
+    var response = await client.get(Uri.parse(widget.feedUrl));
     var channel = AtomFeed.parse(response.body);
     if (mounted) {
       setState(() {
-        feedYoutube = channel.items.asMap();
+        feedYoutube = channel.items!.asMap();
         carregando = false;
       });
     }
@@ -46,33 +46,34 @@ class _HomeFeedListState extends State<HomeFeedList> {
         ? Visibility(
       visible: widget.index == 0,
       child: PreferredSize(
-        preferredSize: Size.fromHeight(4.0),
+        preferredSize: const Size.fromHeight(4.0),
         child: LinearProgressIndicator(
-          valueColor: new AlwaysStoppedAnimation<Color>(
-              Theme.of(context).accentColor.withOpacity(0.8)),
-          backgroundColor: Theme.of(context).accentColor.withOpacity(0.3),
+          valueColor: AlwaysStoppedAnimation<Color>(
+              Theme.of(context).colorScheme.primary.withOpacity(0.8)),
+          backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.3),
         ),
       ),
     )
         : SingleChildScrollView(
-      physics: NeverScrollableScrollPhysics(),
-      child: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
+      child:  carregando ? const SizedBox.shrink()
+        : ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: 1,
         itemBuilder: (context, index) {
           return FadeInUp(
-            duration: Duration(milliseconds: 600),
+            duration: const Duration(milliseconds: 600),
             child: VideoCard(
                 showChannelName: true,
-                feed: new Feed(
-                  title: feedYoutube[index].title,
-                  link: feedYoutube[index].links[0].href,
-                  author: feedYoutube[index].authors[0].name,
-                  data: feedYoutube[index].published,
+                feed: Feed(
+                  title: feedYoutube[index]!.title!,
+                  link: feedYoutube[index]!.links![0].href!,
+                  author: feedYoutube[index]!.authors![0].name!,
+                  data: feedYoutube[index]!.published!,
                   linkImagem:
-                  'https://i.ytimg.com/vi/${feedYoutube[index].id.substring(9)}/hq720.jpg',
-                )),
+                  'https://i.ytimg.com/vi/${feedYoutube[index]!.id!.substring(9)}/hq720.jpg',
+                ), key: UniqueKey(),),
           );
         },
       ),

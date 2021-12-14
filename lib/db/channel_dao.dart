@@ -6,26 +6,24 @@ import 'package:path_provider/path_provider.dart';
 
 class ChannelDao {
 
-  static final _databaseName = "YoutubeChannels.db";
-  static final _databaseVersion = 1;
+  static const _databaseName = "YoutubeChannels.db";
+  static const _databaseVersion = 1;
 
-  static final table = 'channel';
-  static final columnIdChannel = 'idChannel';
-  static final columnChannelName = 'channelName';
-  static final columnChannelLinkId = 'channelLinkId';
+  static const table = 'channels';
+  static const columnIdChannel = 'idChannel';
+  static const columnChannelName = 'channelName';
+  static const columnChannelLinkId = 'channelLinkId';
 
+  static Database? _database;
+  Future<Database> get database async =>
+      _database ??= await _initDatabase();
 
   ChannelDao._privateConstructor();
   static final ChannelDao instance = ChannelDao._privateConstructor();
-  static Database _database;
 
-  Future<Database> get database async {
-    if (_database != null) return _database;
-    _database = await _initDatabase();
-    return _database;
-  }
 
-  _initDatabase() async {
+  // Open db and create if it not exists
+  Future<Database> _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
     return await openDatabase(path,
@@ -60,7 +58,7 @@ class ChannelDao {
 
   Future<int> queryRowCount() async {
     Database db = await instance.database;
-    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table'));
+    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table'))!;
   }
 
   Future<int> update(Map<String, dynamic> row) async {
