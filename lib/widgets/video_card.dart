@@ -32,15 +32,12 @@ class VideoCard extends StatelessWidget {
         child: Column(
           children: [
             Card(
-              elevation: 1,
+              elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
-                side: BorderSide(
-                  color: Colors.grey[850]!,
-                ),
               ),
               child: ClipRRect(
-                  borderRadius: const BorderRadius.all(const Radius.circular(12)),
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
                   child: FadeInImage.assetNetwork(
                       image: feed.linkImagem,
                       placeholder: "assets/placeholder.jpg")),

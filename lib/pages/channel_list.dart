@@ -70,7 +70,7 @@ class _ChannelListState extends State<ChannelList> {
                       channelList[index]['channelName'],
                       style: const TextStyle(fontSize: 16),
                     ),
-                    trailing: IconButton(
+                   /* trailing: IconButton(
                         icon: const Icon(Icons.share_outlined),
                         color: Theme.of(context).hintColor,
                         constraints: const BoxConstraints(),
@@ -78,7 +78,7 @@ class _ChannelListState extends State<ChannelList> {
                         onPressed: () {
                           Share.share(urlShareChannel +
                               channelList[index]['channelLinkId']);
-                        }),
+                        }),*/
                   );
                 }),
       ]),

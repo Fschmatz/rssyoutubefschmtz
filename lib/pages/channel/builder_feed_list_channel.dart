@@ -103,12 +103,10 @@ class _BuilderFeedListChannelState extends State<BuilderFeedListChannel> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.channelName),
-        elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.delete_outline,
-              color: Theme.of(context).hintColor,
             ),
             onPressed: () {
               showAlertDialogOkDelete(context);
@@ -134,9 +132,8 @@ class _BuilderFeedListChannelState extends State<BuilderFeedListChannel> {
                   .then((value) =>
                       {widget.refreshList(), Navigator.of(context).pop()});
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.edit_outlined,
-              color: Theme.of(context).hintColor,
             ),
           ),
         ],

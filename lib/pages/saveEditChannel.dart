@@ -10,7 +10,11 @@ class SaveEditChannel extends StatefulWidget {
   String? channelLink;
 
   SaveEditChannel(
-      {required Key key, this.edit, this.channelId, this.channelLink, this.channelName})
+      {required Key key,
+      this.edit,
+      this.channelId,
+      this.channelLink,
+      this.channelName})
       : super(key: key);
 
   @override
@@ -32,9 +36,12 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
   }
 
   void _saveChannel() async {
-
-    print(customControllerChannelName.text,);
-    print(customControllerChannelIdLink.text,);
+    print(
+      customControllerChannelName.text,
+    );
+    print(
+      customControllerChannelIdLink.text,
+    );
 
     Map<String, dynamic> row = {
       ChannelDao.columnChannelName: customControllerChannelName.text,
@@ -102,7 +109,6 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Add Channel"),
-          elevation: 0,
           actions: [
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
@@ -126,72 +132,90 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    minLines: 1,
-                    maxLines: 5,
-                    maxLength: 100,
-                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                    textCapitalization: TextCapitalization.sentences,
-                    keyboardType: TextInputType.name,
-                    controller: customControllerChannelName,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.article_outlined, size: 20),
-                      hintText: "Channel Name",
-                      helperText: "* Required",
-                    ),
-                    style: const TextStyle(
+        body: ListView(
+          children: [
+            ListTile(
+              leading: const SizedBox(
+                height: 0.1,
+              ),
+              title: Text("Channel Name".toUpperCase(),
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).colorScheme.primary)),
+            ),
+            ListTile(
+              leading: const Icon(Icons.notes_outlined),
+              title: TextField(
+                minLines: 1,
+                maxLines: 5,
+                maxLength: 100,
+                maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                textCapitalization: TextCapitalization.sentences,
+                keyboardType: TextInputType.name,
+                controller: customControllerChannelName,
+                decoration: const InputDecoration(
+                  helperText: "* Required",
+                ),
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const SizedBox(
+                height: 0.1,
+              ),
+              title: Text("Channel Id".toUpperCase(),
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).colorScheme.primary)),
+            ),
+            ListTile(
+              leading: const Icon(Icons.article_outlined),
+              title: TextField(
+                minLines: 1,
+                maxLines: 5,
+                maxLength: 200,
+                maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                textCapitalization: TextCapitalization.sentences,
+                keyboardType: TextInputType.name,
+                controller: customControllerChannelIdLink,
+                decoration: const InputDecoration(
+                  helperText: "* Required",
+                ),
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+           /* const SizedBox(
+              height: 40,
+            ),*/
+            ListTile(
+              leading: const SizedBox(
+                height: 0.1,
+              ),
+              title: Text("Info".toUpperCase(),
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).colorScheme.primary)),
+            ),
+            ListTile(
+                leading: const Icon(Icons.feedback_outlined),
+                title: Text(
+                  "How to get the Channel Id:\n\nOpen the channel page in the browser and copy the code after the ' = ' symbol.\n\nIf unavailable, open the page source code and search for externalId.",
+                  style: TextStyle(
                       fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  TextField(
-                    minLines: 1,
-                    maxLines: 5,
-                    maxLength: 100,
-                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                    textCapitalization: TextCapitalization.sentences,
-                    keyboardType: TextInputType.name,
-                    controller: customControllerChannelIdLink,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.article_outlined, size: 20),
-                      hintText: "Channel Id",
-                      helperText: "* Required",
-                    ),
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  Card(
-                    elevation: 0,
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      side: BorderSide(
-                        color: Colors.grey[600]!.withOpacity(0.5),
-                      ),
-                    ),
-                    child: ListTile(
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                        title: Text(
-                          "How to get the Channel Id:\n\nOpen the channel page in the browser and copy the code after the ' = ' symbol.\n\nIf unavailable, open the page source code and search for externalId.",
-                          style: TextStyle(
-                              fontSize: 16,
-                              color:
-                                  Theme.of(context).textTheme.headline6!.color!.withOpacity(0.9)),
-                        )),
-                  )
-                ])));
+                      color: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .color!
+                          .withOpacity(0.8)),
+                ))
+          ],
+        ));
   }
 }
