@@ -14,6 +14,7 @@ Future<void> main() async {
         return MaterialApp(
           theme: notifier.darkTheme ? dark : light,
           home: const App(),
+          debugShowCheckedModeBanner: false,
         );
       },
     ),

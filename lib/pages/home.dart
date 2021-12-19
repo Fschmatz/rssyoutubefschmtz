@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rssyoutubefschmtz/pages/channel_list.dart';
-import 'package:rssyoutubefschmtz/pages/home/home_builder.dart';
+import 'package:rssyoutubefschmtz/pages/channel/channel_list.dart';
+import 'package:rssyoutubefschmtz/pages/latest_videos_list.dart';
 import 'package:rssyoutubefschmtz/settings/settings_page.dart';
 
 class Home extends StatefulWidget {
@@ -9,9 +9,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   int _currentIndex = 0;
-  final tabs = [
-    HomeBuilder(
+    final List<Widget> _tabs = [
+    LatestVideosList(
       key: UniqueKey(),
     ),
     ChannelList(
@@ -45,10 +46,7 @@ class _HomeState extends State<Home> {
                 }),
           ],
         ),
-        body: IndexedStack(
-          index: _currentIndex,
-          children: tabs,
-        ),
+        body: _tabs[_currentIndex],
         bottomNavigationBar: NavigationBar(
           labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           animationDuration: const Duration(seconds: 1),

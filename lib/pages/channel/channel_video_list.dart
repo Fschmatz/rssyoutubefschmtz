@@ -7,9 +7,9 @@ import 'package:rssyoutubefschmtz/widgets/video_card.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 
-class BuilderFeedListChannel extends StatefulWidget {
+class ChannelVideoList extends StatefulWidget {
   @override
-  _BuilderFeedListChannelState createState() => _BuilderFeedListChannelState();
+  _ChannelVideoListState createState() => _ChannelVideoListState();
 
   final String feedUrl;
   final String channelName;
@@ -19,7 +19,7 @@ class BuilderFeedListChannel extends StatefulWidget {
   String channelLink;
   Function() refreshList;
 
-  BuilderFeedListChannel(
+  ChannelVideoList(
       {required Key key,
       required this.feedUrl,
       required this.channelName,
@@ -30,8 +30,8 @@ class BuilderFeedListChannel extends StatefulWidget {
       : super(key: key);
 }
 
-class _BuilderFeedListChannelState extends State<BuilderFeedListChannel> {
-  bool carregando = true;
+class _ChannelVideoListState extends State<ChannelVideoList> {
+  bool loading = true;
   Map<int, AtomItem> feedYoutube = {};
 
   @override
@@ -40,7 +40,7 @@ class _BuilderFeedListChannelState extends State<BuilderFeedListChannel> {
     super.initState();
   }
 
-  //Feed do Youtube sempre será de 15 items
+  //Each Youtube feed only returns 15 items
   Future<void> getRssYoutubeData() async {
     var client = http.Client();
     var response = await client.get(Uri.parse(widget.feedUrl));
@@ -48,7 +48,7 @@ class _BuilderFeedListChannelState extends State<BuilderFeedListChannel> {
     if (mounted) {
       setState(() {
         feedYoutube = channel.items!.asMap();
-        carregando = false;
+        loading = false;
       });
     }
     client.close();
@@ -138,7 +138,7 @@ class _BuilderFeedListChannelState extends State<BuilderFeedListChannel> {
           ),
         ],
       ),
-      body: carregando
+      body: loading
           ? Visibility(
               visible: widget.index == 0,
               child: PreferredSize(

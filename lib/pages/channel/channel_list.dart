@@ -3,7 +3,7 @@ import 'package:rssyoutubefschmtz/db/channel_dao.dart';
 import 'package:rssyoutubefschmtz/pages/saveEditChannel.dart';
 import 'package:share/share.dart';
 
-import 'channel/builder_feed_list_channel.dart';
+import 'channel_video_list.dart';
 
 class ChannelList extends StatefulWidget {
   const ChannelList({required Key key}) : super(key: key);
@@ -52,7 +52,7 @@ class _ChannelListState extends State<ChannelList> {
                       Navigator.push(
                           context,
                           MaterialPageRoute<void>(
-                            builder: (BuildContext context) => BuilderFeedListChannel(
+                            builder: (BuildContext context) => ChannelVideoList(
                               key: UniqueKey(),
                               feedUrl: urlYoutube +
                                   channelList[index]['channelLinkId'],
