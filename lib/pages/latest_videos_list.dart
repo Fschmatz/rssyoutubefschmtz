@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
+import 'package:rssyoutubefschmtz/settings/settings_page.dart';
 import 'package:rssyoutubefschmtz/widgets/video_card.dart';
 import 'package:webfeed/domain/atom_feed.dart';
 import 'package:webfeed/domain/atom_item.dart';
@@ -15,7 +16,6 @@ class LatestVideosList extends StatefulWidget {
 }
 
 class _LatestVideosListState extends State<LatestVideosList> {
-
   bool loading = true;
   late String currentFeed;
   final dbChannel = ChannelDao.instance;
@@ -30,7 +30,7 @@ class _LatestVideosListState extends State<LatestVideosList> {
     super.initState();
   }
 
-  Future<void> pullRefresh() async{
+  Future<void> pullRefresh() async {
     listAllChannels = [];
     filteredList = [];
     setState(() {});
@@ -58,7 +58,7 @@ class _LatestVideosListState extends State<LatestVideosList> {
     }
 
     //FILTER FEED
-    for (int i = 0; i < listAllChannels.length; i+=15) {
+    for (int i = 0; i < listAllChannels.length; i += 15) {
       filteredList.addAll(listAllChannels.skip(i).take(1).toList());
     }
 
@@ -68,54 +68,74 @@ class _LatestVideosListState extends State<LatestVideosList> {
       });
     }
     client.close();
-    //print("ALL -> " + listAllChannels.length.toString());
-    //print("FILTER -> " + filteredList.length.toString());
   }
 
   @override
   Widget build(BuildContext context) {
-    return loading
-        ? PreferredSize(
-            preferredSize: const Size.fromHeight(4.0),
-            child: LinearProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).colorScheme.primary.withOpacity(0.8)),
-              backgroundColor:
-                  Theme.of(context).colorScheme.primary.withOpacity(0.3),
-            ),
-          )
-        : RefreshIndicator(
-          onRefresh: () => pullRefresh(),
-          child: ListView(children: [
-              loading
-                  ? const SizedBox.shrink()
-                  : ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: filteredList.length,
-                      itemBuilder: (context, index) {
-                        return FadeInUp(
-                          duration: const Duration(milliseconds: 600),
-                          child: VideoCard(
-                            showChannelName: true,
-                            feed: Feed(
-                              title: filteredList[index].title!,
-                              link: filteredList[index].links![0].href!,
-                              author:
-                              filteredList[index].authors![0].name!,
-                              data: filteredList[index].published!,
-                              linkImagem:
-                                  'https://i.ytimg.com/vi/${filteredList[index].id!.substring(9)}/hq720.jpg',
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[
+          SliverAppBar(
+            title: const Text('RSS YouTube'),
+            pinned: false,
+            floating: true,
+            snap: true,
+            actions: [
+              IconButton(
+                  icon: const Icon(
+                    Icons.settings_outlined,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const SettingsPage(),
+                          fullscreenDialog: true,
+                        ));
+                  }),
+            ],
+          ),
+        ];
+      },
+      body: loading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            )
+          : RefreshIndicator(
+              onRefresh: () => pullRefresh(),
+              child: ListView(children: [
+                loading
+                    ? const SizedBox.shrink()
+                    : ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: filteredList.length,
+                        itemBuilder: (context, index) {
+                          return FadeInUp(
+                            duration: const Duration(milliseconds: 600),
+                            child: VideoCard(
+                              showChannelName: true,
+                              feed: Feed(
+                                title: filteredList[index].title!,
+                                link: filteredList[index].links![0].href!,
+                                author: filteredList[index].authors![0].name!,
+                                data: filteredList[index].published!,
+                                linkImagem:
+                                    'https://i.ytimg.com/vi/${filteredList[index].id!.substring(9)}/hq720.jpg',
+                              ),
+                              key: UniqueKey(),
                             ),
-                            key: UniqueKey(),
-                          ),
-                        );
-                      },
-                    ),
-              const SizedBox(
-                height: 50,
-              )
-            ]),
-        );
+                          );
+                        },
+                      ),
+                const SizedBox(
+                  height: 50,
+                )
+              ]),
+            ),
+    );
   }
 }

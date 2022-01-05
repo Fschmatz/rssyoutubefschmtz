@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
-import 'package:rssyoutubefschmtz/pages/saveEditChannel.dart';
+import 'package:rssyoutubefschmtz/pages/save_edit_channel.dart';
 import 'package:rssyoutubefschmtz/widgets/video_card.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;

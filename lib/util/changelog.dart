@@ -1,9 +1,15 @@
 class Changelog{
 
-  static String appVersion = "4.0.2";
+  static String appVersion = "4.1.0";
   static String appName = "RSS YouTube Fschmatz";
 
   static String changelogCurrent = '''
+4.1.0
+- Hide AppBar
+- Bug Fixes  
+''';
+
+  static String changelogsOld = '''
 4.0.2
 - Material You NavBar
 - Dart Lints
@@ -11,9 +17,7 @@ class Changelog{
 - UI Changes
 - Internal Logic Changes
 - Bug Fixes  
-''';
-
-  static String changelogsOld = '''
+  
 3.2.0  
 - Animations!
 - Share Channel

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
-import 'package:rssyoutubefschmtz/pages/channel/channel_list.dart';
 
 class SaveEditChannel extends StatefulWidget {
   bool? edit;

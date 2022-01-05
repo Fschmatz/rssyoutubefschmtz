@@ -79,7 +79,7 @@ ThemeData dark = ThemeData(
     appBarTheme: const AppBarTheme(
         color: Color(0xFF212020),
         elevation: 0,
-        iconTheme: IconThemeData(color: Color(0xFFCACACA)),
+        iconTheme: IconThemeData(color: Color(0xFFF5F5F5)),
         titleTextStyle: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -120,10 +120,10 @@ ThemeData dark = ThemeData(
         backgroundColor: const Color(0xFF161515),
         indicatorColor: const Color(0xFFDF5B51),
         iconTheme: MaterialStateProperty.all(const IconThemeData(
-          color: Color(0xFFCACACA),
+          color: Color(0xFFEAEAEA),
         )),
         labelTextStyle: MaterialStateProperty.all(const TextStyle(
-            color: Color(0xFFCACACA), fontWeight: FontWeight.w500))),
+            color: Color(0xFFEAEAEA), fontWeight: FontWeight.w500))),
     bottomSheetTheme:
         const BottomSheetThemeData(modalBackgroundColor: Color(0xFF212020)));
 
