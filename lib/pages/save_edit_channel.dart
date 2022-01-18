@@ -35,13 +35,6 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
   }
 
   void _saveChannel() async {
-    print(
-      customControllerChannelName.text,
-    );
-    print(
-      customControllerChannelIdLink.text,
-    );
-
     Map<String, dynamic> row = {
       ChannelDao.columnChannelName: customControllerChannelName.text,
       ChannelDao.columnChannelLinkId: customControllerChannelIdLink.text,

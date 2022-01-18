@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
 import 'package:rssyoutubefschmtz/pages/save_edit_channel.dart';
 import 'package:rssyoutubefschmtz/settings/settings_page.dart';
+import 'package:rssyoutubefschmtz/widgets/app_bar_sliver.dart';
 import 'channel_video_list.dart';
 
 class ChannelsList extends StatefulWidget {
@@ -36,75 +37,57 @@ class _ChannelsListState extends State<ChannelsList> {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              title: const Text('RSS YouTube'),
-              pinned: false,
-              floating: true,
-              snap: true,
-              actions: [
-                IconButton(
-                    icon: const Icon(
-                      Icons.settings_outlined,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => const SettingsPage(),
-                            fullscreenDialog: true,
-                          ));
-                    }),
-              ],
-            ),
-          ];
+          return <Widget>[const AppBarSliver()];
         },
         body: ListView(physics: const AlwaysScrollableScrollPhysics(), children: [
-          channelList.isEmpty
-              ? const SizedBox.shrink()
-              : ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (context, index) => const SizedBox(
-                        height: 15,
-                      ),
-                  shrinkWrap: true,
-                  itemCount: channelList.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      contentPadding: const EdgeInsets.fromLTRB(16, 0, 10, 0),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) => ChannelVideoList(
-                                key: UniqueKey(),
-                                feedUrl: urlYoutube +
-                                    channelList[index]['channelLinkId'],
-                                channelName: channelList[index]['channelName'],
-                                index: 0,
-                                channelId: channelList[index]['idChannel'],
-                                refreshList: getAllChannels,
-                                channelLink: channelList[index]['channelLinkId'],
-                              ),
-                              fullscreenDialog: true,
-                            ));
-                      },
-                      leading: const Icon(Icons.video_collection_outlined),
-                      title: Text(
-                        channelList[index]['channelName'],
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                     /* trailing: IconButton(
-                          icon: const Icon(Icons.share_outlined),
-                          color: Theme.of(context).hintColor,
-                          constraints: const BoxConstraints(),
-                          splashRadius: 28,
-                          onPressed: () {
-                            Share.share(urlShareChannel +
-                                channelList[index]['channelLinkId']);
-                          }),*/
-                    );
-                  }),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 450),
+            child: channelList.isEmpty
+                ? const SizedBox.shrink()
+                : ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    separatorBuilder: (context, index) => const SizedBox(
+                          height: 15,
+                        ),
+                    shrinkWrap: true,
+                    itemCount: channelList.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        contentPadding: const EdgeInsets.fromLTRB(16, 0, 10, 0),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) => ChannelVideoList(
+                                  key: UniqueKey(),
+                                  feedUrl: urlYoutube +
+                                      channelList[index]['channelLinkId'],
+                                  channelName: channelList[index]['channelName'],
+                                  index: 0,
+                                  channelId: channelList[index]['idChannel'],
+                                  refreshList: getAllChannels,
+                                  channelLink: channelList[index]['channelLinkId'],
+                                ),
+                                fullscreenDialog: true,
+                              ));
+                        },
+                        leading: const Icon(Icons.video_collection_outlined),
+                        title: Text(
+                          channelList[index]['channelName'],
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                       /* trailing: IconButton(
+                            icon: const Icon(Icons.share_outlined),
+                            color: Theme.of(context).hintColor,
+                            constraints: const BoxConstraints(),
+                            splashRadius: 28,
+                            onPressed: () {
+                              Share.share(urlShareChannel +
+                                  channelList[index]['channelLinkId']);
+                            }),*/
+                      );
+                    }),
+          ),
         ]),
       ),
       floatingActionButton: FloatingActionButton(

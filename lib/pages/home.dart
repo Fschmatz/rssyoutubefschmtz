@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/pages/channel/channels_list.dart';
 import 'package:rssyoutubefschmtz/pages/latest_videos_list.dart';
+import 'package:rssyoutubefschmtz/pages/watch_later.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -16,6 +17,9 @@ class _HomeState extends State<Home> {
     ChannelsList(
       key: UniqueKey(),
     ),
+    WatchLater(
+        key: UniqueKey()
+    )
   ];
 
   @override
@@ -23,8 +27,6 @@ class _HomeState extends State<Home> {
     return Scaffold(
         body: _tabs[_currentIndex],
         bottomNavigationBar: NavigationBar(
-          //labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          animationDuration: const Duration(seconds: 1),
           selectedIndex: _currentIndex,
           onDestinationSelected: (index) {
             setState(() {
@@ -47,6 +49,14 @@ class _HomeState extends State<Home> {
                 color: Colors.black87,
               ),
               label: 'Channels',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.watch_later_outlined),
+              selectedIcon: Icon(
+                Icons.watch_later,
+                color: Colors.black87,
+              ),
+              label: 'Watch Later',
             ),
           ],
         ));

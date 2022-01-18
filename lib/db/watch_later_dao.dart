@@ -3,40 +3,43 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
-
-class ChannelDao {
+class WatchLaterFeedDao {
 
   static const _databaseName = "YoutubeRss.db";
   static const _databaseVersion = 1;
 
-  static const table = 'channels';
-  static const columnIdChannel = 'idChannel';
-  static const columnChannelName = 'channelName';
-  static const columnChannelLinkId = 'channelLinkId';
+  static const table = 'watchLater';
+  static const columnIdVideo = 'idVideo';
+  static const columnTitle = 'title';
+  static const columnLink = 'link';
+  static const columnAuthor = 'author';
+  static const columnDate = 'date';
 
   static Database? _database;
   Future<Database> get database async =>
       _database ??= await _initDatabase();
 
-  ChannelDao._privateConstructor();
-  static final ChannelDao instance = ChannelDao._privateConstructor();
+  WatchLaterFeedDao._privateConstructor();
+  static final WatchLaterFeedDao instance = WatchLaterFeedDao._privateConstructor();
 
-
-  // Open db and create if it not exists
   Future<Database> _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
-    return await openDatabase(path,
+    return await openDatabase(
+        path,
         version: _databaseVersion,
-        onCreate: _onCreate);
+        onCreate: _onCreate
+    );
   }
 
   Future _onCreate(Database db, int version) async {
     await db.execute('''
-          CREATE TABLE $table (
-            $columnIdChannel INTEGER PRIMARY KEY,            
-            $columnChannelName TEXT NOT NULL,
-            $columnChannelLinkId TEXT NOT NULL
+          CREATE TABLE IF NOT EXISTS $table (
+            $columnIdVideo INTEGER PRIMARY KEY,            
+            $columnTitle TEXT NOT NULL,
+            $columnLink TEXT NOT NULL,
+            $columnAuthor TEXT NOT NULL,
+            $columnDate TEXT NOT NULL
           )
           ''');
   }
@@ -53,7 +56,7 @@ class ChannelDao {
 
   Future<List<Map<String, dynamic>>> queryAllOrderByChannelName() async {
     Database db = await instance.database;
-    return await db.rawQuery('SELECT * FROM $table ORDER BY $columnChannelName');
+    return await db.rawQuery('SELECT * FROM $table ORDER BY $columnAuthor');
   }
 
   Future<int> queryRowCount() async {
@@ -63,12 +66,12 @@ class ChannelDao {
 
   Future<int> update(Map<String, dynamic> row) async {
     Database db = await instance.database;
-    int id = row[columnIdChannel];
-    return await db.update(table, row, where: '$columnIdChannel = ?', whereArgs: [id]);
+    int id = row[columnIdVideo];
+    return await db.update(table, row, where: '$columnIdVideo = ?', whereArgs: [id]);
   }
 
   Future<int> delete(int id) async {
     Database db = await instance.database;
-    return await db.delete(table, where: '$columnIdChannel = ?', whereArgs: [id]);
+    return await db.delete(table, where: '$columnIdVideo = ?', whereArgs: [id]);
   }
 }

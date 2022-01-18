@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rssyoutubefschmtz/app.dart';
 import 'package:rssyoutubefschmtz/util/theme.dart';
+import 'db/db_creator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final dbCreator = DbCreator.instance;
+  dbCreator.initDatabase();
 
   runApp(ChangeNotifierProvider(
     create: (_) => ThemeNotifier(),

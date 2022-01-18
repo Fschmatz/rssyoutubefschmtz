@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
 import 'package:rssyoutubefschmtz/settings/settings_page.dart';
+import 'package:rssyoutubefschmtz/widgets/app_bar_sliver.dart';
 import 'package:rssyoutubefschmtz/widgets/video_card.dart';
 import 'package:webfeed/domain/atom_feed.dart';
 import 'package:webfeed/domain/atom_item.dart';
@@ -74,29 +75,7 @@ class _LatestVideosListState extends State<LatestVideosList> {
   Widget build(BuildContext context) {
     return NestedScrollView(
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return <Widget>[
-          SliverAppBar(
-            title: const Text('RSS YouTube'),
-            pinned: false,
-            floating: true,
-            snap: true,
-            actions: [
-              IconButton(
-                  icon: const Icon(
-                    Icons.settings_outlined,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) =>
-                              const SettingsPage(),
-                          fullscreenDialog: true,
-                        ));
-                  }),
-            ],
-          ),
-        ];
+        return <Widget>[const AppBarSliver()];
       },
       body: loading
           ? Center(

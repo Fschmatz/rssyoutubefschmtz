@@ -74,7 +74,9 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
     );
 
     AlertDialog alert = AlertDialog(
-      elevation: 3.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       title: const Text(
         "Confirmation ", //
         style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
