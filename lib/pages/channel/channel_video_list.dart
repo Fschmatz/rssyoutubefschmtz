@@ -44,14 +44,22 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
   Future<void> getRssYoutubeData() async {
     var client = http.Client();
     var response = await client.get(Uri.parse(widget.feedUrl));
-    var channel = AtomFeed.parse(response.body);
-    if (mounted) {
-      setState(() {
-        feedYoutube = channel.items!.asMap();
-        loading = false;
-      });
+    try {
+      var channel = AtomFeed.parse(response.body);
+      if (mounted) {
+        setState(() {
+          feedYoutube = channel.items!.asMap();
+          loading = false;
+        });
+      }
+      client.close();
+    } on Exception catch (_) {
+      throw ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text('Feed ID Error'),
+        duration: Duration(seconds: 4),
+      ));
     }
-    client.close();
   }
 
   void deleteChannel(int id) async {
@@ -101,7 +109,6 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.channelName),

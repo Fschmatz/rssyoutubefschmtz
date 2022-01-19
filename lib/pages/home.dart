@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/pages/channel/channels_list.dart';
 import 'package:rssyoutubefschmtz/pages/latest_videos_list.dart';
-import 'package:rssyoutubefschmtz/pages/watch_later.dart';
+import 'package:rssyoutubefschmtz/pages/watch_later_list.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class _HomeState extends State<Home> {
     ChannelsList(
       key: UniqueKey(),
     ),
-    WatchLater(
+    WatchLaterList(
         key: UniqueKey()
     )
   ];

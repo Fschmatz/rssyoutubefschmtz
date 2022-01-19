@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
+import 'package:rssyoutubefschmtz/db/watch_later_dao.dart';
 import 'package:rssyoutubefschmtz/settings/settings_page.dart';
 import 'package:rssyoutubefschmtz/widgets/app_bar_sliver.dart';
 import 'package:rssyoutubefschmtz/widgets/video_card.dart';
@@ -54,8 +55,17 @@ class _LatestVideosListState extends State<LatestVideosList> {
     for (int i = 0; i < channelList.length; i++) {
       var response = await client
           .get(Uri.parse(urlYoutube + channelList[i]['channelLinkId']));
-      var channel = AtomFeed.parse(response.body);
-      listAllChannels.addAll(channel.items!);
+      try{
+        var channel = AtomFeed.parse(response.body);
+        listAllChannels.addAll(channel.items!);
+      } on Exception catch (_) {
+        throw ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text('Feed ID Error'),
+          duration: Duration(seconds: 4),
+        ));
+      }
     }
 
     //FILTER FEED

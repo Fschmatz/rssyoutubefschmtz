@@ -53,7 +53,7 @@ class ChannelDao {
 
   Future<List<Map<String, dynamic>>> queryAllOrderByChannelName() async {
     Database db = await instance.database;
-    return await db.rawQuery('SELECT * FROM $table ORDER BY $columnChannelName');
+    return await db.rawQuery('SELECT * FROM $table ORDER BY $columnChannelName COLLATE NOCASE');
   }
 
   Future<int> queryRowCount() async {

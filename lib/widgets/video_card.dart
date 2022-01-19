@@ -31,6 +31,11 @@ class VideoCard extends StatelessWidget {
     final id = await db.insert(row);
   }
 
+  void delete() async {
+    final db = WatchLaterFeedDao.instance;
+  //  final delete = await db.delete(feed.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     var dataFormatada = Jiffy(feed.data).format("dd/MM/yyyy");

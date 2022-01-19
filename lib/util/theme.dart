@@ -53,6 +53,11 @@ ThemeData light = ThemeData(
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color(0xFFed4f42),
     ),
+    snackBarTheme: SnackBarThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
     bottomAppBarColor: const Color(0xFFE8E8EF),
     navigationBarTheme: NavigationBarThemeData(
         backgroundColor: const Color(0xFFECE8E8),
@@ -85,7 +90,7 @@ ThemeData dark = ThemeData(
             fontWeight: FontWeight.w600,
             color: Color(0xFFFFFFFF))),
     cardTheme: const CardTheme(
-      color: Color(0xFF292828),
+      color: Color(0xFF2E2D2F),
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFF292828),
@@ -115,10 +120,16 @@ ThemeData dark = ThemeData(
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color(0xFFf27268),
     ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: const Color(0xFFF0F0F0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
     bottomAppBarColor: const Color(0xFF161515),
     navigationBarTheme: NavigationBarThemeData(
         backgroundColor: const Color(0xFF161515),
-        indicatorColor: const Color(0xFFDF5B51),
+        indicatorColor: const Color(0xFFEC6157),
         iconTheme: MaterialStateProperty.all(const IconThemeData(
           color: Color(0xFFEAEAEA),
         )),

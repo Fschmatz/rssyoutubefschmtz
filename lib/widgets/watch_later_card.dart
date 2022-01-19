@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rssyoutubefschmtz/classes/feed.dart';
 import 'package:rssyoutubefschmtz/classes/watch_later_feed.dart';
 import 'package:rssyoutubefschmtz/db/watch_later_dao.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -7,10 +6,10 @@ import 'package:share/share.dart';
 import 'package:jiffy/jiffy.dart';
 
 class WatchLaterCard extends StatelessWidget {
-  WatchLaterFeed feed;
+  WatchLaterFeed watchLaterFeed;
   Function() refreshList;
 
-  WatchLaterCard({required Key key,required this.feed,required this.refreshList}) : super(key: key);
+  WatchLaterCard({required Key key,required this.watchLaterFeed,required this.refreshList}) : super(key: key);
 
   //URL LAUNCHER
   _launchBrowser(String url) async {
@@ -23,20 +22,20 @@ class WatchLaterCard extends StatelessWidget {
 
   void delete() async {
     final db = WatchLaterFeedDao.instance;
-    final delete = await db.delete(feed.id);
+    final delete = await db.delete(watchLaterFeed.id);
     refreshList();
   }
 
   @override
   Widget build(BuildContext context) {
-    var dataFormatada = Jiffy(feed.date).format("dd/MM/yyyy");
+    var dataFormatada = Jiffy(watchLaterFeed.date).format("dd/MM/yyyy");
 
     return InkWell(
       onTap: () {
-        _launchBrowser(feed.link.toString());
+        _launchBrowser(watchLaterFeed.link.toString());
       },
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(8, 10, 5, 0),
+        padding: const EdgeInsets.fromLTRB(8, 5, 5, 0),
         child: Column(
           children: [
             Padding(
@@ -44,7 +43,7 @@ class WatchLaterCard extends StatelessWidget {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  feed.title,
+                  watchLaterFeed.title,
                   textAlign: TextAlign.start,
                   style: const TextStyle(fontSize: 16),
                 ),
@@ -60,7 +59,7 @@ class WatchLaterCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            feed.author,
+                            watchLaterFeed.author,
                             style: TextStyle(
                                 fontSize: 13, color: Theme.of(context).hintColor),
                           ),
@@ -105,7 +104,7 @@ class WatchLaterCard extends StatelessWidget {
                       width: 55,
                       child: TextButton(
                           onPressed: () {
-                            Share.share(feed.link);
+                            Share.share(watchLaterFeed.link);
                           },
                         child: Icon(
                           Icons.share_outlined,
