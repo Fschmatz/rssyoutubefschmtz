@@ -129,7 +129,7 @@ ThemeData dark = ThemeData(
     bottomAppBarColor: const Color(0xFF161515),
     navigationBarTheme: NavigationBarThemeData(
         backgroundColor: const Color(0xFF161515),
-        indicatorColor: const Color(0xFFEC6157),
+        indicatorColor: const Color(0xFFEF6960),
         iconTheme: MaterialStateProperty.all(const IconThemeData(
           color: Color(0xFFEAEAEA),
         )),

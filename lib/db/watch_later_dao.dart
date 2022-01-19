@@ -74,4 +74,10 @@ class WatchLaterFeedDao {
     Database db = await instance.database;
     return await db.delete(table, where: '$columnIdVideo = ?', whereArgs: [id]);
   }
+
+  Future<List<Map<String, dynamic>>> checkWatchLater(String videoTitle) async {
+    Database db = await instance.database;
+    return await db.rawQuery('SELECT * FROM $table WHERE $columnTitle LIKE "$videoTitle"');
+  }
+
 }

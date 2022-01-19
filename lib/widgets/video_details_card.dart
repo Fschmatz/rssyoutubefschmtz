@@ -5,11 +5,26 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:jiffy/jiffy.dart';
 
-class VideoCard extends StatelessWidget {
+class VideoDetailsCard extends StatefulWidget {
   Feed feed;
   bool showChannelName;
 
-  VideoCard({required Key key,required this.feed,required this.showChannelName}) : super(key: key);
+  VideoDetailsCard(
+      {Key? key, required this.feed, required this.showChannelName})
+      : super(key: key);
+
+  @override
+  _VideoDetailsCardState createState() => _VideoDetailsCardState();
+}
+
+class _VideoDetailsCardState extends State<VideoDetailsCard> {
+  List<Map<String, dynamic>> watchLaterList = [];
+
+  @override
+  void initState() {
+    getWatchLaterList();
+    super.initState();
+  }
 
   //URL LAUNCHER
   _launchBrowser(String url) async {
@@ -23,26 +38,35 @@ class VideoCard extends StatelessWidget {
   void _saveVideoToWatchLater() async {
     final db = WatchLaterFeedDao.instance;
     Map<String, dynamic> row = {
-      WatchLaterFeedDao.columnTitle: feed.title,
-      WatchLaterFeedDao.columnLink: feed.link,
-      WatchLaterFeedDao.columnAuthor: feed.author,
-      WatchLaterFeedDao.columnDate: feed.data,
+      WatchLaterFeedDao.columnTitle: widget.feed.title,
+      WatchLaterFeedDao.columnLink: widget.feed.link,
+      WatchLaterFeedDao.columnAuthor: widget.feed.author,
+      WatchLaterFeedDao.columnDate: widget.feed.data,
     };
     final id = await db.insert(row);
   }
 
-  void delete() async {
+  void _removeFromWatchLater() async {
     final db = WatchLaterFeedDao.instance;
-  //  final delete = await db.delete(feed.id);
+    final delete = await db.delete(watchLaterList[0]['idVideo']);
+  }
+
+  Future<void> getWatchLaterList() async {
+    final db = WatchLaterFeedDao.instance;
+    var resp =
+        await db.checkWatchLater(widget.feed.title);
+    setState(() {
+      watchLaterList = resp;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var dataFormatada = Jiffy(feed.data).format("dd/MM/yyyy");
+    var dataFormatada = Jiffy(widget.feed.data).format("dd/MM/yyyy");
 
     return InkWell(
       onTap: () {
-        _launchBrowser(feed.link.toString());
+        _launchBrowser(widget.feed.link.toString());
       },
       child: Padding(
         padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
@@ -56,7 +80,7 @@ class VideoCard extends StatelessWidget {
               child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
                   child: FadeInImage.assetNetwork(
-                      image: feed.linkImagem,
+                      image: widget.feed.linkImagem,
                       placeholder: "assets/placeholder.jpg")),
             ),
             Padding(
@@ -64,7 +88,7 @@ class VideoCard extends StatelessWidget {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  feed.title,
+                  widget.feed.title,
                   textAlign: TextAlign.start,
                   style: const TextStyle(fontSize: 16),
                 ),
@@ -80,15 +104,16 @@ class VideoCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Visibility(
-                            visible: showChannelName,
+                            visible: widget.showChannelName,
                             child: Text(
-                              feed.author,
+                              widget.feed.author,
                               style: TextStyle(
-                                  fontSize: 13, color: Theme.of(context).hintColor),
+                                  fontSize: 13,
+                                  color: Theme.of(context).hintColor),
                             ),
                           ),
                           Visibility(
-                            visible:showChannelName,
+                            visible: widget.showChannelName,
                             child: const SizedBox(
                               height: 5,
                             ),
@@ -96,7 +121,8 @@ class VideoCard extends StatelessWidget {
                           Text(
                             dataFormatada,
                             style: TextStyle(
-                                fontSize: 13, color: Theme.of(context).hintColor),
+                                fontSize: 13,
+                                color: Theme.of(context).hintColor),
                           ),
                         ],
                       ),
@@ -105,34 +131,42 @@ class VideoCard extends StatelessWidget {
                       width: 55,
                       child: TextButton(
                         onPressed: () {
-                          _saveVideoToWatchLater();
+                          watchLaterList.isEmpty
+                          ? _saveVideoToWatchLater()
+                          : _removeFromWatchLater();
+                          getWatchLaterList();
                         },
                         child: Icon(
                           Icons.watch_later_outlined,
                           size: 20.0,
-                          color: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .color!
-                              .withOpacity(0.9),
+                          color: watchLaterList.isEmpty
+                              ? Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .color!
+                                  .withOpacity(0.9)
+                              : Theme.of(context).colorScheme.primary,
                         ),
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           primary: Theme.of(context).cardTheme.color,
-                          onPrimary: Theme.of(context).colorScheme.secondaryVariant,
+                          onPrimary:
+                              Theme.of(context).colorScheme.secondaryVariant,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 20,),
+                    const SizedBox(
+                      width: 20,
+                    ),
                     SizedBox(
                       width: 55,
                       child: TextButton(
-                          onPressed: () {
-                            Share.share(feed.link);
-                          },
+                        onPressed: () {
+                          Share.share(widget.feed.link);
+                        },
                         child: Icon(
                           Icons.share_outlined,
                           size: 20.0,
@@ -145,7 +179,8 @@ class VideoCard extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           primary: Theme.of(context).cardTheme.color,
-                          onPrimary: Theme.of(context).colorScheme.secondaryVariant,
+                          onPrimary:
+                              Theme.of(context).colorScheme.secondaryVariant,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),
@@ -160,4 +195,3 @@ class VideoCard extends StatelessWidget {
     );
   }
 }
-

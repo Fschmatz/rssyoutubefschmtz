@@ -2,10 +2,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
-import 'package:rssyoutubefschmtz/db/watch_later_dao.dart';
-import 'package:rssyoutubefschmtz/settings/settings_page.dart';
 import 'package:rssyoutubefschmtz/widgets/app_bar_sliver.dart';
-import 'package:rssyoutubefschmtz/widgets/video_card.dart';
+import 'package:rssyoutubefschmtz/widgets/video_details_card.dart';
 import 'package:webfeed/domain/atom_feed.dart';
 import 'package:webfeed/domain/atom_item.dart';
 import 'package:http/http.dart' as http;
@@ -105,7 +103,7 @@ class _LatestVideosListState extends State<LatestVideosList> {
                         itemBuilder: (context, index) {
                           return FadeInUp(
                             duration: const Duration(milliseconds: 600),
-                            child: VideoCard(
+                            child: VideoDetailsCard(
                               showChannelName: true,
                               feed: Feed(
                                 title: filteredList[index].title!,

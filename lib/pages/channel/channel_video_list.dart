@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
 import 'package:rssyoutubefschmtz/pages/save_edit_channel.dart';
-import 'package:rssyoutubefschmtz/widgets/video_card.dart';
+import 'package:rssyoutubefschmtz/widgets/video_details_card.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 
@@ -174,7 +174,7 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
                           itemBuilder: (context, index) {
                             return FadeInUp(
                               duration: const Duration(milliseconds: 600),
-                              child: VideoCard(
+                              child: VideoDetailsCard(
                                 showChannelName: false,
                                 feed: Feed(
                                   title: feedYoutube[index]!.title!,

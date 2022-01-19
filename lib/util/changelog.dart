@@ -1,10 +1,10 @@
 class Changelog{
 
-  static String appVersion = "4.2.1";
+  static String appVersion = "4.2.2";
   static String appName = "RSS YouTube Fschmatz";
 
   static String changelogCurrent = '''
-4.2.1
+4.2.2
 - Watch Later Page
 - UI Changes
 - Bug Fixes 
