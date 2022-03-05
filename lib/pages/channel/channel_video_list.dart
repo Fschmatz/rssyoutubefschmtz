@@ -71,7 +71,6 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
     Widget okButton = TextButton(
       child: const Text(
         "Yes",
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       onPressed: () {
         deleteChannel(widget.channelId);
@@ -86,14 +85,10 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
         borderRadius: BorderRadius.circular(12),
       ),
       title: const Text(
-        "Confirmation ", //
-        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+        "Confirmation ",
       ),
       content: const Text(
-        "\nDelete Channel ?",
-        style: TextStyle(
-          fontSize: 18,
-        ),
+        "Delete Channel ?",
       ),
       actions: [
         okButton,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rssyoutubefschmtz/settings/settings_page.dart';
+import '../pages/settings/settings_page.dart';
 
 class AppBarSliver extends StatefulWidget {
   const AppBarSliver({Key? key}) : super(key: key);

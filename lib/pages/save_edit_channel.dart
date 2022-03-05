@@ -66,23 +66,17 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
     Widget okButton = TextButton(
       child: const Text(
         "Ok",
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
     AlertDialog alert = AlertDialog(
-      elevation: 3.0,
       title: const Text(
         "Error",
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       content: Text(
         checkProblems(),
-        style: const TextStyle(
-          fontSize: 18,
-        ),
       ),
       actions: [
         okButton,
@@ -100,7 +94,7 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Add Channel"),
+          title: widget.edit! ? const Text("Edit Channel") : const Text("Add Channel"),
           actions: [
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
@@ -149,9 +143,6 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
                 decoration: const InputDecoration(
                   helperText: "* Required",
                 ),
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
               ),
             ),
             ListTile(
@@ -177,14 +168,8 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
                 decoration: const InputDecoration(
                   helperText: "* Required",
                 ),
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
               ),
             ),
-           /* const SizedBox(
-              height: 40,
-            ),*/
             ListTile(
               leading: const SizedBox(
                 height: 0.1,

@@ -151,7 +151,7 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
                           elevation: 0,
                           primary: Theme.of(context).cardTheme.color,
                           onPrimary:
-                              Theme.of(context).colorScheme.secondaryVariant,
+                              Theme.of(context).colorScheme.secondary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),
@@ -180,7 +180,7 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
                           elevation: 0,
                           primary: Theme.of(context).cardTheme.color,
                           onPrimary:
-                              Theme.of(context).colorScheme.secondaryVariant,
+                              Theme.of(context).colorScheme.secondary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),

@@ -30,41 +30,41 @@ class _WatchLaterListState extends State<WatchLaterList> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[const AppBarSliver()];
         },
-        body: ListView(physics: const AlwaysScrollableScrollPhysics(), children: [
+        body:
+            ListView(physics: const AlwaysScrollableScrollPhysics(), children: [
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 450),
             child: watchLaterList.isEmpty
                 ? const SizedBox.shrink()
                 : ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 15,
-                ),
-                shrinkWrap: true,
-                itemCount: watchLaterList.length,
-                itemBuilder: (context, index) {
-                      return WatchLaterCard(
-                      watchLaterFeed: WatchLaterFeed(
-                        id: watchLaterList[index]['idVideo'],
-                        title: watchLaterList[index]['title'],
-                        link: watchLaterList[index]['link'],
-                        author: watchLaterList[index]['author'],
-                        date: watchLaterList[index]['date'],
+                    physics: const NeverScrollableScrollPhysics(),
+                    separatorBuilder: (context, index) => const SizedBox(
+                          height: 15,
                         ),
-                      key: UniqueKey(),
+                    shrinkWrap: true,
+                    itemCount: watchLaterList.length,
+                    itemBuilder: (context, index) {
+                      return WatchLaterCard(
+                        watchLaterFeed: WatchLaterFeed(
+                          id: watchLaterList[index]['idVideo'],
+                          title: watchLaterList[index]['title'],
+                          link: watchLaterList[index]['link'],
+                          author: watchLaterList[index]['author'],
+                          date: watchLaterList[index]['date'],
+                        ),
+                        key: UniqueKey(),
                         refreshList: getWatchLaterList,
-                    );
-                }),
+                      );
+                    }),
           ),
+              const SizedBox(height: 50,)
         ]),
       ),
-
     );
   }
 }

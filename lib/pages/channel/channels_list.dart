@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
 import 'package:rssyoutubefschmtz/pages/save_edit_channel.dart';
-import 'package:rssyoutubefschmtz/settings/settings_page.dart';
 import 'package:rssyoutubefschmtz/widgets/app_bar_sliver.dart';
 import 'channel_video_list.dart';
 
@@ -76,15 +75,6 @@ class _ChannelsListState extends State<ChannelsList> {
                           channelList[index]['channelName'],
                           style: const TextStyle(fontSize: 16),
                         ),
-                       /* trailing: IconButton(
-                            icon: const Icon(Icons.share_outlined),
-                            color: Theme.of(context).hintColor,
-                            constraints: const BoxConstraints(),
-                            splashRadius: 28,
-                            onPressed: () {
-                              Share.share(urlShareChannel +
-                                  channelList[index]['channelLinkId']);
-                            }),*/
                       );
                     }),
           ),

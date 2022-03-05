@@ -26,8 +26,13 @@ class _LatestVideosListState extends State<LatestVideosList> {
 
   @override
   void initState() {
-    getAllChannels().then((value) => getRssYoutubeFeed());
+    loadVideos();
     super.initState();
+  }
+
+  Future<void> loadVideos() async{
+    await getAllChannels();
+    getRssYoutubeFeed();
   }
 
   Future<void> pullRefresh() async {

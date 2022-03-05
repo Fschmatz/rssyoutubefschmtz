@@ -1,16 +1,22 @@
-class Changelog{
+class AppDetails{
 
-  static String appVersion = "4.2.2";
+  static String appVersion = "4.3.0";
   static String appName = "RSS YouTube Fschmatz";
+  static String repositoryLink = "https://github.com/Fschmatz/rssyoutubefschmtz";
 
   static String changelogCurrent = '''
+4.3.0
+- Bug Fixes
+- UI Changes
+- Added System Theme
+''';
+
+  static String changelogsOld = '''
 4.2.2
 - Watch Later Page
 - UI Changes
 - Bug Fixes 
-''';
 
-  static String changelogsOld = '''
 4.1.0
 - Hide AppBar
 - Bug Fixes  
