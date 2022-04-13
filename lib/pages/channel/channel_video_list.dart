@@ -81,11 +81,8 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
     );
 
     AlertDialog alert = AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
       title: const Text(
-        "Confirmation ",
+        "Confirmation",
       ),
       content: const Text(
         "Delete Channel ?",
@@ -117,7 +114,7 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
             },
           ),
           const SizedBox(
-            width: 5,
+            width: 8,
           ),
           IconButton(
             onPressed: () {

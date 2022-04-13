@@ -8,6 +8,7 @@ ThemeData light = ThemeData(
     colorScheme: const ColorScheme.light(
       background: Color(0xFFFFFFFF),
       primary: Color(0xFFe0382f),
+      onPrimary: Color(0xFFFFFFFF),
       secondary: Color(0xFFe0382f),
     ),
     appBarTheme: const AppBarTheme(
@@ -19,10 +20,13 @@ ThemeData light = ThemeData(
             fontWeight: FontWeight.w400,
             color: Color(0xFF000000))),
     cardTheme: const CardTheme(
-      color: Color(0xFFF2F1F1),
+      color: Color(0xFFF2F2F2),
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFFFFFFFF),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(28)),
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
         contentPadding:
@@ -44,7 +48,7 @@ ThemeData light = ThemeData(
             ),
             borderRadius: BorderRadius.circular(10.0))),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color(0xFFEAE8E8),
+      backgroundColor: Color(0xFFEFEFEF),
       selectedItemColor: Color(0xFFe0382f),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -57,8 +61,8 @@ ThemeData light = ThemeData(
     ),
     bottomAppBarColor: const Color(0xFFE8E8EF),
     navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: const Color(0xFFEAE8E8),
-        indicatorColor: const Color(0xFFe0382f),
+        backgroundColor: const Color(0xFFEFEFEF),
+        indicatorColor: const Color(0xffe53e35),
         iconTheme: MaterialStateProperty.all(const IconThemeData(
           color: Color(0xFF050505),
         )),
@@ -70,15 +74,16 @@ ThemeData light = ThemeData(
 ThemeData dark = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    primaryColor: const Color(0xFF212020),
-    scaffoldBackgroundColor: const Color(0xFF212020),
+    primaryColor: const Color(0xFF191919),
+    scaffoldBackgroundColor: const Color(0xFF191919),
     colorScheme: const ColorScheme.dark(
-      background: Color(0xFF212020),
+      background: Color(0xFF191919),
       primary: Color(0xFFE7665C),
+      onPrimary: Color(0xFF5F150E),
       secondary: Color(0xFFE7665C),
     ),
     appBarTheme: const AppBarTheme(
-        color: Color(0xFF212020),
+        color: Color(0xFF191919),
         elevation: 0,
         iconTheme: IconThemeData(color: Color(0xFFFFFFFF)),
         titleTextStyle: TextStyle(
@@ -86,10 +91,13 @@ ThemeData dark = ThemeData(
             fontWeight: FontWeight.w400,
             color: Color(0xFFFFFFFF))),
     cardTheme: const CardTheme(
-      color: Color(0xFF2E2D2F),
+      color: Color(0xFF2E2D2D),
     ),
     dialogTheme: const DialogTheme(
-      backgroundColor: Color(0xFF212020),
+      backgroundColor: Color(0xFF191919),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(28)),
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
         contentPadding:
@@ -111,7 +119,7 @@ ThemeData dark = ThemeData(
             ),
             borderRadius: BorderRadius.circular(10.0))),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color(0xFF181717),
+      backgroundColor: Color(0xFF232323),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color(0xFFf27268),
@@ -122,14 +130,14 @@ ThemeData dark = ThemeData(
         borderRadius: BorderRadius.circular(10),
       ),
     ),
-    bottomAppBarColor: const Color(0xFF181717),
+    bottomAppBarColor: const Color(0xFF232323),
     navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: const Color(0xFF181717),
-        indicatorColor: const Color(0xFFEF6960),
+        backgroundColor: const Color(0xFF232323),
+        indicatorColor: const Color(0xFFE5675F),
         iconTheme: MaterialStateProperty.all(const IconThemeData(
           color: Color(0xFFEAEAEA),
         )),
         labelTextStyle: MaterialStateProperty.all(const TextStyle(
             color: Color(0xFFEAEAEA), fontWeight: FontWeight.w500))),
     bottomSheetTheme:
-        const BottomSheetThemeData(modalBackgroundColor: Color(0xFF212020)));
+        const BottomSheetThemeData(modalBackgroundColor: Color(0xFF232323)));

@@ -32,7 +32,6 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Settings"),
-          elevation: 0,
         ),
         body: ListView(
           children: <Widget>[
@@ -47,19 +46,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: Text(
                   AppDetails.appName + " " + AppDetails.appVersion,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 17.5, color: Colors.black),
+                  style: TextStyle(
+                      fontSize: 17.5,
+                      color: Theme.of(context).colorScheme.onPrimary),
                 ),
               ),
             ),
-            const Divider(),
             ListTile(
-              leading: const SizedBox(
-                height: 0.1,
-              ),
-              title: Text("General".toUpperCase(),
+              title: Text("General",
                   style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                       color: themeColorApp)),
             ),
             ListTile(
@@ -71,21 +68,16 @@ class _SettingsPageState extends State<SettingsPage> {
               leading: const Icon(Icons.brightness_6_outlined),
               title: const Text(
                 "App Theme",
-                style: TextStyle(fontSize: 16),
               ),
               subtitle: Text(
                 getThemeStringFormatted(),
               ),
             ),
-            const Divider(),
             ListTile(
-              leading: const SizedBox(
-                height: 0.1,
-              ),
-              title: Text("About".toUpperCase(),
+              title: Text("About",
                   style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                       color: themeColorApp)),
             ),
             ListTile(
@@ -94,7 +86,6 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               title: const Text(
                 "App Info",
-                style: TextStyle(fontSize: 16),
               ),
               onTap: () {
                 Navigator.push(
@@ -105,16 +96,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     ));
               },
             ),
-            const SizedBox(
-              height: 10.0,
-            ),
             ListTile(
               leading: const Icon(
                 Icons.text_snippet_outlined,
               ),
               title: const Text(
                 "Changelog",
-                style: TextStyle(fontSize: 16),
               ),
               onTap: () {
                 Navigator.push(

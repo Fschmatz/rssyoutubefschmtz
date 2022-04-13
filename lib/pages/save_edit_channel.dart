@@ -94,44 +94,39 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: widget.edit! ? const Text("Edit Channel") : const Text("Add Channel"),
+          title: widget.edit!
+              ? const Text("Edit Channel")
+              : const Text("Add Channel"),
           actions: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
-              child: IconButton(
-                icon: const Icon(Icons.save_outlined),
-                tooltip: 'Save',
-                onPressed: () {
-                  if (checkProblems().isEmpty) {
-                    if (!widget.edit!) {
-                      _saveChannel();
-                      Navigator.of(context).pop();
-                    } else {
-                      _updateChannel();
-                      Navigator.of(context).pop();
-                    }
+            IconButton(
+              icon: const Icon(Icons.save_outlined),
+              tooltip: 'Save',
+              onPressed: () {
+                if (checkProblems().isEmpty) {
+                  if (!widget.edit!) {
+                    _saveChannel();
+                    Navigator.of(context).pop();
                   } else {
-                    showAlertDialogErrors(context);
+                    _updateChannel();
+                    Navigator.of(context).pop();
                   }
-                },
-              ),
+                } else {
+                  showAlertDialogErrors(context);
+                }
+              },
             ),
           ],
         ),
         body: ListView(
           children: [
             ListTile(
-              leading: const SizedBox(
-                height: 0.1,
-              ),
-              title: Text("Channel Name".toUpperCase(),
+              title: Text("Channel Name",
                   style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.primary)),
             ),
             ListTile(
-              leading: const Icon(Icons.notes_outlined),
               title: TextField(
                 minLines: 1,
                 maxLines: 5,
@@ -142,21 +137,20 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
                 controller: customControllerChannelName,
                 decoration: const InputDecoration(
                   helperText: "* Required",
+                  prefixIcon: Icon(
+                    Icons.notes_outlined,
+                  ),
                 ),
               ),
             ),
             ListTile(
-              leading: const SizedBox(
-                height: 0.1,
-              ),
-              title: Text("Channel Id".toUpperCase(),
+              title: Text("Channel Id",
                   style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.primary)),
             ),
             ListTile(
-              leading: const Icon(Icons.article_outlined),
               title: TextField(
                 minLines: 1,
                 maxLines: 5,
@@ -167,31 +161,30 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
                 controller: customControllerChannelIdLink,
                 decoration: const InputDecoration(
                   helperText: "* Required",
+                  prefixIcon: Icon(
+                    Icons.article_outlined,
+                  ),
                 ),
               ),
             ),
             ListTile(
-              leading: const SizedBox(
-                height: 0.1,
-              ),
-              title: Text("Info".toUpperCase(),
+              title: Text("Info",
                   style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.primary)),
             ),
             ListTile(
-                leading: const Icon(Icons.feedback_outlined),
                 title: Text(
-                  "How to get the Channel Id:\n\nOpen the channel page in the browser and copy the code after the ' = ' symbol.\n\nIf unavailable, open the page source code and search for externalId.",
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .color!
-                          .withOpacity(0.8)),
-                ))
+              "How to get the Channel Id:\n\nOpen the channel page in the browser and copy the code after the ' = ' symbol.\n\nIf unavailable, open the page source code and search for externalId.",
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .color!
+                      .withOpacity(0.8)),
+            ))
           ],
         ));
   }

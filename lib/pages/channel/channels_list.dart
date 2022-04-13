@@ -32,13 +32,13 @@ class _ChannelsListState extends State<ChannelsList> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[const AppBarSliver()];
         },
-        body: ListView(physics: const AlwaysScrollableScrollPhysics(), children: [
+        body:
+            ListView(physics: const AlwaysScrollableScrollPhysics(), children: [
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 450),
             child: channelList.isEmpty
@@ -57,15 +57,18 @@ class _ChannelsListState extends State<ChannelsList> {
                           Navigator.push(
                               context,
                               MaterialPageRoute<void>(
-                                builder: (BuildContext context) => ChannelVideoList(
+                                builder: (BuildContext context) =>
+                                    ChannelVideoList(
                                   key: UniqueKey(),
                                   feedUrl: urlYoutube +
                                       channelList[index]['channelLinkId'],
-                                  channelName: channelList[index]['channelName'],
+                                  channelName: channelList[index]
+                                      ['channelName'],
                                   index: 0,
                                   channelId: channelList[index]['idChannel'],
                                   refreshList: getAllChannels,
-                                  channelLink: channelList[index]['channelLinkId'],
+                                  channelLink: channelList[index]
+                                      ['channelLinkId'],
                                 ),
                                 fullscreenDialog: true,
                               ));
@@ -96,7 +99,10 @@ class _ChannelsListState extends State<ChannelsList> {
                 fullscreenDialog: true,
               )).then((value) => getAllChannels());
         },
-        child: const Icon(Icons.add, color: Colors.black),
+        child: Icon(
+          Icons.add,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
       ),
     );
   }

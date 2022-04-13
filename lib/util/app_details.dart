@@ -1,11 +1,11 @@
 class AppDetails{
 
-  static String appVersion = "4.3.0";
+  static String appVersion = "4.3.1";
   static String appName = "RSS YouTube Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/rssyoutubefschmtz";
 
   static String changelogCurrent = '''
-4.3.0
+4.3.1
 - Bug Fixes
 - UI Changes
 - Added System Theme
