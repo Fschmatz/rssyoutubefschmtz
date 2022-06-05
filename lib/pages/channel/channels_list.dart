@@ -56,7 +56,7 @@ class _ChannelsListState extends State<ChannelsList> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute<void>(
+                              MaterialPageRoute(
                                 builder: (BuildContext context) =>
                                     ChannelVideoList(
                                   key: UniqueKey(),
@@ -70,7 +70,6 @@ class _ChannelsListState extends State<ChannelsList> {
                                   channelLink: channelList[index]
                                       ['channelLinkId'],
                                 ),
-                                fullscreenDialog: true,
                               ));
                         },
                         leading: const Icon(Icons.video_collection_outlined),
@@ -85,18 +84,14 @@ class _ChannelsListState extends State<ChannelsList> {
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: null,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-        ),
         onPressed: () {
           Navigator.push(
               context,
-              MaterialPageRoute<void>(
+              MaterialPageRoute(
                 builder: (BuildContext context) => SaveEditChannel(
                   edit: false,
                   key: UniqueKey(),
                 ),
-                fullscreenDialog: true,
               )).then((value) => getAllChannels());
         },
         child: Icon(

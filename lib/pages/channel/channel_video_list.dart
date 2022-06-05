@@ -120,7 +120,7 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
             onPressed: () {
               Navigator.push(
                       context,
-                      MaterialPageRoute<void>(
+                      MaterialPageRoute(
                         builder: (BuildContext context) => SaveEditChannel(
                           channelId: widget.channelId,
                           channelLink: widget.channelLink,
@@ -128,7 +128,6 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
                           edit: true,
                           key: UniqueKey(),
                         ),
-                        fullscreenDialog: true,
                       ))
                   .then((value) =>
                       {widget.refreshList(), Navigator.of(context).pop()});

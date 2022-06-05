@@ -1,96 +1,96 @@
 class AppDetails{
 
-  static String appVersion = "4.3.1";
+  static String appVersion = "4.3.2";
   static String appName = "RSS YouTube Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/rssyoutubefschmtz";
 
   static String changelogCurrent = '''
-4.3.1
-- Bug Fixes
-- UI Changes
-- Added System Theme
+4.3.2
+- Bug fixes
+- UI changes
+- Added system theme
+- Flutter 3
 ''';
 
   static String changelogsOld = '''
 4.2.2
-- Watch Later Page
-- UI Changes
-- Bug Fixes 
+- Watch Later page
+- UI changes
+- Bug fixes 
 
 4.1.0
 - Hide AppBar
-- Bug Fixes  
+- Bug fixes  
 
 4.0.2
 - Material You NavBar
-- Dart Lints
-- Null Safety
-- UI Changes
-- Internal Logic Changes
-- Bug Fixes  
+- Dart lints
+- Null safety
+- UI changes
+- Internal logic changes
+- Bug fixes  
   
 3.2.0  
 - Animations!
-- Share Channel
+- Share channel
 
 3.1.2  
-- Small Fixes
-- Delete Dialog
-- Order By Channel Name
-- UI Changes
+- Small fixes
+- Delete dialog
+- Order by channel name
+- UI changes
 
 3.0.0  
-- Add Channel
-- Channel Database
-- New Settings Page
-- UI Changes
-- Pull Down to Refresh
+- Add channel
+- Channel database
+- New settings page
+- UI changes
+- Pull down to refresh
 
 2.1.3
 - Fixes
-- Color Changes
+- Color changes
 
 2.1.0
-- Recents Page
-- UI Changes
+- Recents page
+- UI changes
 
 2.0.1
 - Fixes
-- Small Changes
+- Small changes
 
 2.0.0
 - New UI
-- More Channels
+- More channels
 
 1.2
-- More Channels
-- Theme Changes 
+- More channels
+- Theme changes 
 
 1.1
 - KeepAlive
 - Fixes 
 
 1.0
-- Placeholder Image + FadeIn
+- Placeholder image + FadeIn
 - Fixes 
 
 0.9
-- Feed Class
+- Feed class
 - Fixes 
 
 0.8
 - Hide Topbar
-- Swipe Down to Refresh
+- Swipe down to refresh
 
 0.7
-- New Builder
+- New builder
 
 0.6
 - Fixes
-- Added FreeCodeCamp
 
 0.5
-- New Cards
+- New cards
 - Thumbnails
   
 0.4
@@ -101,10 +101,10 @@ class AppDetails{
 
 0.2
 - Fixes
-- Feed Working
+- Feed working
 
 0.1
-- Project Start                                  
+- Project start                                  
 
       (ಠ‿ಠ)  
 ''';

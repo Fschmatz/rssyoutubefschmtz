@@ -24,9 +24,8 @@ class _AppBarSliverState extends State<AppBarSliver> {
               onPressed: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute<void>(
+                    MaterialPageRoute(
                       builder: (BuildContext context) => const SettingsPage(),
-                      fullscreenDialog: true,
                     ));
               }),
         ]);

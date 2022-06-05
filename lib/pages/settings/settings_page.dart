@@ -1,5 +1,6 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:rssyoutubefschmtz/pages/print_list.dart';
 import 'package:rssyoutubefschmtz/util/app_details.dart';
 import '../../util/dialog_select_theme.dart';
 import '../../util/utils_functions.dart';
@@ -67,10 +68,21 @@ class _SettingsPageState extends State<SettingsPage> {
                   }),
               leading: const Icon(Icons.brightness_6_outlined),
               title: const Text(
-                "App Theme",
+                "App theme",
               ),
               subtitle: Text(
                 getThemeStringFormatted(),
+              ),
+            ),
+            ListTile(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => PrintList(),
+                  )),
+              leading: const Icon(Icons.print_outlined),
+              title: const Text(
+                "Print channel list",
               ),
             ),
             ListTile(
@@ -85,14 +97,13 @@ class _SettingsPageState extends State<SettingsPage> {
                 Icons.info_outline,
               ),
               title: const Text(
-                "App Info",
+                "App info",
               ),
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute<void>(
+                    MaterialPageRoute(
                       builder: (BuildContext context) => const AppInfoPage(),
-                      fullscreenDialog: true,
                     ));
               },
             ),
@@ -106,9 +117,8 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute<void>(
+                    MaterialPageRoute(
                       builder: (BuildContext context) => const ChangelogPage(),
-                      fullscreenDialog: true,
                     ));
               },
             ),

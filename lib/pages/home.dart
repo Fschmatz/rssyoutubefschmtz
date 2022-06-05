@@ -17,9 +17,7 @@ class _HomeState extends State<Home> {
     ChannelsList(
       key: UniqueKey(),
     ),
-    WatchLaterList(
-        key: UniqueKey()
-    )
+    WatchLaterList(key: UniqueKey())
   ];
 
   @override
@@ -38,7 +36,6 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.home_outlined),
               selectedIcon: Icon(
                 Icons.home,
-                color: Colors.black87,
               ),
               label: 'Home',
             ),
@@ -46,7 +43,6 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.subscriptions_outlined),
               selectedIcon: Icon(
                 Icons.subscriptions,
-                color: Colors.black87,
               ),
               label: 'Channels',
             ),
@@ -54,7 +50,6 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.watch_later_outlined),
               selectedIcon: Icon(
                 Icons.watch_later,
-                color: Colors.black87,
               ),
               label: 'Watch Later',
             ),
