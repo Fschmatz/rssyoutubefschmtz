@@ -1,15 +1,16 @@
 class AppDetails{
 
-  static String appVersion = "4.3.2";
+  static String appVersion = "4.3.3";
   static String appName = "RSS YouTube Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/rssyoutubefschmtz";
 
   static String changelogCurrent = '''
-4.3.2
+4.3.3
 - Bug fixes
+- Launch url fix
 - UI changes
 - Added system theme
-- Flutter 3
+- Flutter 3.3
 ''';
 
   static String changelogsOld = '''

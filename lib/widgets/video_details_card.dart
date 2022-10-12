@@ -22,17 +22,15 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
 
   @override
   void initState() {
-    getWatchLaterList();
     super.initState();
+    getWatchLaterList();
   }
 
-  //URL LAUNCHER
-  _launchBrowser(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Error';
-    }
+  _launchBrowser(String url) {
+    launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    );
   }
 
   void _saveVideoToWatchLater() async {
@@ -62,7 +60,7 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
 
   @override
   Widget build(BuildContext context) {
-    var dataFormatada = Jiffy(widget.feed.data).format("dd/MM/yyyy");
+    var formattedDate = Jiffy(widget.feed.data).format("dd/MM/yyyy");
 
     return InkWell(
       onTap: () {
@@ -108,20 +106,20 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
                             child: Text(
                               widget.feed.author,
                               style: TextStyle(
-                                  fontSize: 13,
+                                  fontSize: 14,
                                   color: Theme.of(context).hintColor),
                             ),
                           ),
                           Visibility(
                             visible: widget.showChannelName,
                             child: const SizedBox(
-                              height: 5,
+                              height: 1,
                             ),
                           ),
                           Text(
-                            dataFormatada,
+                            formattedDate,
                             style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 14,
                                 color: Theme.of(context).hintColor),
                           ),
                         ],
@@ -136,6 +134,12 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
                           : _removeFromWatchLater();
                           getWatchLaterList();
                         },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor: Theme.of(context).cardTheme.color,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                        ),
                         child: Icon(
                           Icons.watch_later_outlined,
                           size: 20.0,
@@ -146,15 +150,6 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
                                   .color!
                                   .withOpacity(0.9)
                               : Theme.of(context).colorScheme.primary,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          primary: Theme.of(context).cardTheme.color,
-                          onPrimary:
-                              Theme.of(context).colorScheme.secondary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
                         ),
                       ),
                     ),
@@ -167,6 +162,12 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
                         onPressed: () {
                           Share.share(widget.feed.link);
                         },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor: Theme.of(context).cardTheme.color,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                        ),
                         child: Icon(
                           Icons.share_outlined,
                           size: 20.0,
@@ -175,15 +176,6 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
                               .headline6!
                               .color!
                               .withOpacity(0.9),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          primary: Theme.of(context).cardTheme.color,
-                          onPrimary:
-                              Theme.of(context).colorScheme.secondary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
                         ),
                       ),
                     ),

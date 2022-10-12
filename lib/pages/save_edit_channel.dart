@@ -29,11 +29,11 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
 
   @override
   void initState() {
+    super.initState();
     if (widget.edit!) {
       controllerChannelName.text = widget.channelName!;
       controllerChannelId.text = widget.channelLink!;
     }
-    super.initState();
   }
 
   void _saveChannel() async {
@@ -53,30 +53,17 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
     final update = await dbChannel.update(row);
   }
 
-
-
-  String checkProblems() {
-    String errors = "";
-    if (controllerChannelName.text.isEmpty) {
-      errors += "Insert Channel Name\n";
-    }
-    if (controllerChannelId.text.isEmpty) {
-      errors += "Insert Channel Id \n";
-    }
-    return errors;
-  }
-
   bool validateTextFields() {
-    String errors = "";
+    bool ok = true;
     if (controllerChannelName.text.isEmpty) {
-      errors += "Title";
+      ok = false;
       validChannelName = false;
     }
     if (controllerChannelId.text.isEmpty) {
-      errors += "Title";
+      ok = false;
       validChannelId = false;
     }
-    return errors.isEmpty ? true : false;
+    return ok;
   }
 
   @override
@@ -91,7 +78,6 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
               icon: const Icon(Icons.save_outlined),
               tooltip: 'Save',
               onPressed: () {
-
                 if (validateTextFields()) {
                   if (!widget.edit!) {
                     _saveChannel();
@@ -157,7 +143,7 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
             Padding(
               padding: const EdgeInsets.fromLTRB(18, 10, 25, 5),
               child: Text(
-                "How to get the Channel Id:\n\nOpen the channel page in the browser and copy the code after the ' = ' symbol.\n\nIf unavailable, open the page source code and search for externalId.",
+                "How to get the Channel Id:\n\nOpen the channel page in the browser and copy the code after the ' = ' symbol in the nav bar.\n\nIf unavailable, open the page source code and search for externalId.",
                 style:
                     TextStyle(fontSize: 14, color: Theme.of(context).hintColor),
               ),

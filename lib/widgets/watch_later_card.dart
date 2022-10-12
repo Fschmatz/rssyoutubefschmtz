@@ -9,15 +9,17 @@ class WatchLaterCard extends StatelessWidget {
   WatchLaterFeed watchLaterFeed;
   Function() refreshList;
 
-  WatchLaterCard({required Key key,required this.watchLaterFeed,required this.refreshList}) : super(key: key);
+  WatchLaterCard(
+      {required Key key,
+      required this.watchLaterFeed,
+      required this.refreshList})
+      : super(key: key);
 
-  //URL LAUNCHER
-  _launchBrowser(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Error';
-    }
+  _launchBrowser(String url) {
+    launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    );
   }
 
   void delete() async {
@@ -28,7 +30,7 @@ class WatchLaterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dataFormatada = Jiffy(watchLaterFeed.date).format("dd/MM/yyyy");
+    var formattedDate = Jiffy(watchLaterFeed.date).format("dd/MM/yyyy");
 
     return InkWell(
       onTap: () {
@@ -61,15 +63,17 @@ class WatchLaterCard extends StatelessWidget {
                           Text(
                             watchLaterFeed.author,
                             style: TextStyle(
-                                fontSize: 13, color: Theme.of(context).hintColor),
+                                fontSize: 14,
+                                color: Theme.of(context).hintColor),
                           ),
                           const SizedBox(
-                            height: 5,
+                            height: 1,
                           ),
                           Text(
-                            dataFormatada,
+                            formattedDate,
                             style: TextStyle(
-                                fontSize: 13, color: Theme.of(context).hintColor),
+                                fontSize: 14,
+                                color: Theme.of(context).hintColor),
                           ),
                         ],
                       ),
@@ -80,6 +84,12 @@ class WatchLaterCard extends StatelessWidget {
                         onPressed: () {
                           delete();
                         },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor: Theme.of(context).cardTheme.color,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                        ),
                         child: Icon(
                           Icons.delete_outline,
                           size: 21.0,
@@ -89,23 +99,23 @@ class WatchLaterCard extends StatelessWidget {
                               .color!
                               .withOpacity(0.9),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          primary: Theme.of(context).cardTheme.color,
-                          onPrimary: Theme.of(context).colorScheme.secondary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                        ),
                       ),
                     ),
-                    const SizedBox(width: 20,),
+                    const SizedBox(
+                      width: 20,
+                    ),
                     SizedBox(
                       width: 55,
                       child: TextButton(
-                          onPressed: () {
-                            Share.share(watchLaterFeed.link);
-                          },
+                        onPressed: () {
+                          Share.share(watchLaterFeed.link);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor: Theme.of(context).cardTheme.color,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                        ),
                         child: Icon(
                           Icons.share_outlined,
                           size: 20.0,
@@ -114,14 +124,6 @@ class WatchLaterCard extends StatelessWidget {
                               .headline6!
                               .color!
                               .withOpacity(0.9),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          primary: Theme.of(context).cardTheme.color,
-                          onPrimary: Theme.of(context).colorScheme.secondary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
                         ),
                       ),
                     ),
@@ -133,4 +135,3 @@ class WatchLaterCard extends StatelessWidget {
     );
   }
 }
-

@@ -57,6 +57,7 @@ ThemeData light = ThemeData(
     bottomAppBarColor: const Color(0xFFE8E8EF),
     navigationBarTheme: NavigationBarThemeData(
         backgroundColor: const Color(0xFFEFEFEF),
+        surfaceTintColor: const Color(0xFFEFEFEF),
         indicatorColor: const Color(0xffe53e35),
         iconTheme: MaterialStateProperty.all(const IconThemeData(
           color: Color(0xFF050505),
@@ -72,17 +73,17 @@ ThemeData dark = ThemeData(
       titleMedium: TextStyle(fontWeight: FontWeight.w400),
     ),
     brightness: Brightness.dark,
-    primaryColor: const Color(0xFF202020),
-    scaffoldBackgroundColor: const Color(0xFF202020),
+    primaryColor: const Color(0xFF1B1B1D),
+    scaffoldBackgroundColor: const Color(0xFF1B1B1D),
     colorScheme: const ColorScheme.dark(
-      background: Color(0xFF202020),
+      background: Color(0xFF1B1B1D),
       primary: Color(0xFFE7665C),
       onPrimary: Color(0xFF5F150E),
       secondary: Color(0xFFE7665C),
     ),
     appBarTheme: const AppBarTheme(
-        surfaceTintColor: Color(0xFF202020),
-        color: Color(0xFF202020),
+        surfaceTintColor: Color(0xFF1B1B1D),
+        color: Color(0xFF1B1B1D),
      ),
     cardTheme: const CardTheme(
       surfaceTintColor: Color(0xFF2E2D2D),
@@ -100,12 +101,12 @@ ThemeData dark = ThemeData(
         ),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withOpacity(0.5),
             ),
             borderRadius: BorderRadius.circular(8.0)),
         border: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withOpacity(0.5),
             ),
             borderRadius: BorderRadius.circular(8.0))),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -123,7 +124,8 @@ ThemeData dark = ThemeData(
     bottomAppBarColor: const Color(0xFF262626),
     navigationBarTheme: NavigationBarThemeData(
         backgroundColor: const Color(0xFF262626),
-        indicatorColor: const Color(0xFF833833),
+        surfaceTintColor:  const Color(0xFF262626),
+        indicatorColor: const Color(0xFF6B3632),
         iconTheme: MaterialStateProperty.all(const IconThemeData(
           color: Color(0xFFEEE7E6),
         )),

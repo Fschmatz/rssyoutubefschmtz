@@ -26,8 +26,8 @@ class _LatestVideosListState extends State<LatestVideosList> {
 
   @override
   void initState() {
-    loadVideos();
     super.initState();
+    loadVideos();
   }
 
   Future<void> loadVideos() async{
@@ -90,7 +90,7 @@ class _LatestVideosListState extends State<LatestVideosList> {
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[const AppBarSliver()];
       },
-      body: loading
+      body: (loading)
           ? Center(
               child: CircularProgressIndicator(
                 color: Theme.of(context).colorScheme.primary,
@@ -99,7 +99,7 @@ class _LatestVideosListState extends State<LatestVideosList> {
           : RefreshIndicator(
               onRefresh: () => pullRefresh(),
               child: ListView(children: [
-                loading
+                (loading)
                     ? const SizedBox.shrink()
                     : ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),

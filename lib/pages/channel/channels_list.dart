@@ -18,8 +18,8 @@ class _ChannelsListState extends State<ChannelsList> {
 
   @override
   void initState() {
-    getAllChannels();
     super.initState();
+    getAllChannels();
   }
 
   Future<void> getAllChannels() async {
@@ -41,7 +41,7 @@ class _ChannelsListState extends State<ChannelsList> {
             ListView(physics: const AlwaysScrollableScrollPhysics(), children: [
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 450),
-            child: channelList.isEmpty
+            child: (channelList.isEmpty)
                 ? const SizedBox.shrink()
                 : ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
@@ -75,7 +75,6 @@ class _ChannelsListState extends State<ChannelsList> {
                         leading: const Icon(Icons.video_collection_outlined),
                         title: Text(
                           channelList[index]['channelName'],
-                          style: const TextStyle(fontSize: 16),
                         ),
                       );
                     }),

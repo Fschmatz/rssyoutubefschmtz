@@ -16,8 +16,8 @@ class _WatchLaterListState extends State<WatchLaterList> {
 
   @override
   void initState() {
-    getWatchLaterList();
     super.initState();
+    getWatchLaterList();
   }
 
   Future<void> getWatchLaterList() async {

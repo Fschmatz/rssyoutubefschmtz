@@ -36,8 +36,8 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
 
   @override
   void initState() {
-    getRssYoutubeData();
     super.initState();
+    getRssYoutubeData();
   }
 
   //Each Youtube feed only returns 15 items
@@ -68,33 +68,30 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
   }
 
   showAlertDialogOkDelete(BuildContext context) {
-    Widget okButton = TextButton(
-      child: const Text(
-        "Yes",
-      ),
-      onPressed: () {
-        deleteChannel(widget.channelId);
-        widget.refreshList();
-        Navigator.of(context).pop();
-        Navigator.of(context).pop();
-      },
-    );
-
-    AlertDialog alert = AlertDialog(
-      title: const Text(
-        "Confirmation",
-      ),
-      content: const Text(
-        "Delete Channel ?",
-      ),
-      actions: [
-        okButton,
-      ],
-    );
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return alert;
+        return AlertDialog(
+          title: const Text(
+            "Confirmation",
+          ),
+          content: const Text(
+            "Delete Channel ?",
+          ),
+          actions: [
+            TextButton(
+              child: const Text(
+                "Yes",
+              ),
+              onPressed: () {
+                deleteChannel(widget.channelId);
+                widget.refreshList();
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
       },
     );
   }
@@ -112,9 +109,6 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
             onPressed: () {
               showAlertDialogOkDelete(context);
             },
-          ),
-          const SizedBox(
-            width: 8,
           ),
           IconButton(
             onPressed: () {
@@ -153,7 +147,7 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
             )
           : RefreshIndicator(
               onRefresh: () => getRssYoutubeData(),
-              child: feedYoutube.isEmpty
+              child: (feedYoutube.isEmpty)
                   ? const SizedBox.shrink()
                   : ListView(
                       physics: const AlwaysScrollableScrollPhysics(),
