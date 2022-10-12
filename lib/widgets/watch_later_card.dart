@@ -41,7 +41,7 @@ class WatchLaterCard extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
