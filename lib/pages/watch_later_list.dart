@@ -17,12 +17,14 @@ class _WatchLaterListState extends State<WatchLaterList> {
   @override
   void initState() {
     super.initState();
+
     getWatchLaterList();
   }
 
   Future<void> getWatchLaterList() async {
     final db = WatchLaterFeedDao.instance;
     var resp = await db.queryAllRows();
+
     setState(() {
       watchLaterList = resp;
     });
@@ -35,16 +37,15 @@ class _WatchLaterListState extends State<WatchLaterList> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[const AppBarSliver()];
         },
-        body:
-            ListView(physics: const AlwaysScrollableScrollPhysics(), children: [
+        body: ListView(physics: const AlwaysScrollableScrollPhysics(), children: [
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 450),
             child: watchLaterList.isEmpty
                 ? const SizedBox.shrink()
                 : ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
-                    separatorBuilder: (context, index) => const SizedBox(
-                          height: 15,
+                    separatorBuilder: (context, index) => const Divider(
+                          height: 0,
                         ),
                     shrinkWrap: true,
                     itemCount: watchLaterList.length,
@@ -62,7 +63,9 @@ class _WatchLaterListState extends State<WatchLaterList> {
                       );
                     }),
           ),
-              const SizedBox(height: 50,)
+          const SizedBox(
+            height: 50,
+          )
         ]),
       ),
     );

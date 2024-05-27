@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/pages/print_list.dart';
 import 'package:rssyoutubefschmtz/util/app_details.dart';
 import '../../util/dialog_select_theme.dart';
-import '../../util/utils_functions.dart';
 import 'app_info_page.dart';
 import 'changelog_page.dart';
 
@@ -23,7 +22,8 @@ class _SettingsPageState extends State<SettingsPage> {
     if (theme == 'system') {
       theme = 'system default';
     }
-    return capitalizeFirstLetterString(theme);
+
+    return theme.replaceFirst(theme[0], theme[0].toUpperCase());
   }
 
   @override

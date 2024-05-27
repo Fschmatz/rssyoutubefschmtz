@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
-import 'package:rssyoutubefschmtz/pages/save_edit_channel.dart';
+import 'package:rssyoutubefschmtz/pages/store_channel.dart';
 import 'package:rssyoutubefschmtz/widgets/app_bar_sliver.dart';
 import 'channel_video_list.dart';
 
@@ -45,14 +45,14 @@ class _ChannelsListState extends State<ChannelsList> {
                 ? const SizedBox.shrink()
                 : ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
-                    separatorBuilder: (context, index) => const SizedBox(
-                          height: 15,
+                    separatorBuilder: (context, index) => const Divider(
+                          height: 0,
                         ),
                     shrinkWrap: true,
                     itemCount: channelList.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        contentPadding: const EdgeInsets.fromLTRB(16, 0, 10, 0),
+                        contentPadding: const EdgeInsets.fromLTRB(16, 4, 10, 4),
                         onTap: () {
                           Navigator.push(
                               context,
@@ -82,20 +82,18 @@ class _ChannelsListState extends State<ChannelsList> {
         ]),
       ),
       floatingActionButton: FloatingActionButton(
-        heroTag: null,
         onPressed: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => SaveEditChannel(
+                builder: (BuildContext context) => StoreChannel(
                   edit: false,
                   key: UniqueKey(),
                 ),
               )).then((value) => getAllChannels());
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
-          color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
     );

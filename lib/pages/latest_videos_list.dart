@@ -15,7 +15,7 @@ class LatestVideosList extends StatefulWidget {
   _LatestVideosListState createState() => _LatestVideosListState();
 }
 
-class _LatestVideosListState extends State<LatestVideosList> {
+class _LatestVideosListState extends State<LatestVideosList> with AutomaticKeepAliveClientMixin<LatestVideosList> {
   bool loading = true;
   late String currentFeed;
   final dbChannel = ChannelDao.instance;
@@ -27,10 +27,14 @@ class _LatestVideosListState extends State<LatestVideosList> {
   @override
   void initState() {
     super.initState();
+
     loadVideos();
   }
 
-  Future<void> loadVideos() async{
+  @override
+  bool get wantKeepAlive => true;
+
+  Future<void> loadVideos() async {
     await getAllChannels();
     getRssYoutubeFeed();
   }
@@ -44,6 +48,7 @@ class _LatestVideosListState extends State<LatestVideosList> {
 
   Future<void> getAllChannels() async {
     var resp = await dbChannel.queryAllOrderByChannelName();
+
     if (mounted) {
       setState(() {
         channelList = resp;
@@ -56,14 +61,12 @@ class _LatestVideosListState extends State<LatestVideosList> {
     var client = http.Client();
 
     for (int i = 0; i < channelList.length; i++) {
-      var response = await client
-          .get(Uri.parse(urlYoutube + channelList[i]['channelLinkId']));
-      try{
+      var response = await client.get(Uri.parse(urlYoutube + channelList[i]['channelLinkId']));
+      try {
         var channel = AtomFeed.parse(response.body);
         listAllChannels.addAll(channel.items!);
       } on Exception catch (_) {
-        throw ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+        throw ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           behavior: SnackBarBehavior.floating,
           content: Text('Feed ID Error'),
           duration: Duration(seconds: 4),
@@ -91,10 +94,8 @@ class _LatestVideosListState extends State<LatestVideosList> {
         return <Widget>[const AppBarSliver()];
       },
       body: (loading)
-          ? Center(
-              child: CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.primary,
-              ),
+          ? const Center(
+              child: CircularProgressIndicator(),
             )
           : RefreshIndicator(
               onRefresh: () => pullRefresh(),
@@ -115,8 +116,7 @@ class _LatestVideosListState extends State<LatestVideosList> {
                                 link: filteredList[index].links![0].href!,
                                 author: filteredList[index].authors![0].name!,
                                 data: filteredList[index].published!,
-                                linkImagem:
-                                    'https://i.ytimg.com/vi/${filteredList[index].id!.substring(9)}/hq720.jpg',
+                                linkImagem: 'https://i.ytimg.com/vi/${filteredList[index].id!.substring(9)}/hq720.jpg',
                               ),
                               key: UniqueKey(),
                             ),

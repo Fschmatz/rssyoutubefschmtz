@@ -10,33 +10,27 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-
   @override
   void initState() {
     super.initState();
+
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
 
   @override
   Widget build(BuildContext context) {
-
-    final Color bottomOverlayColor =
-    Theme.of(context).bottomNavigationBarTheme.backgroundColor!;
-    final Color topOverlayColor =
-    Theme.of(context).appBarTheme.backgroundColor!;
-    final Brightness iconBrightness =
-    Theme.of(context).brightness == Brightness.light
-        ? Brightness.dark
-        : Brightness.light;
+    final theme = Theme.of(context);
+    final Color topOverlayColor = theme.colorScheme.background;
+    final Brightness iconBrightness = theme.brightness == Brightness.light ? Brightness.dark : Brightness.light;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
+          systemNavigationBarColor: Colors.transparent,
           statusBarIconBrightness: iconBrightness,
-          systemNavigationBarColor: bottomOverlayColor,
           statusBarColor: topOverlayColor,
           systemStatusBarContrastEnforced: false,
           systemNavigationBarIconBrightness: iconBrightness,
         ),
-        child: SafeArea(child: Home())
-    );
+        child: Home());
   }
 }

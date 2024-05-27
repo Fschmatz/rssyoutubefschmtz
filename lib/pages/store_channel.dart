@@ -2,25 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
 
-class SaveEditChannel extends StatefulWidget {
+class StoreChannel extends StatefulWidget {
   bool? edit;
   int? channelId;
   String? channelName;
   String? channelLink;
 
-  SaveEditChannel(
-      {required Key key,
-      this.edit,
-      this.channelId,
-      this.channelLink,
-      this.channelName})
-      : super(key: key);
+  StoreChannel({required Key key, this.edit, this.channelId, this.channelLink, this.channelName}) : super(key: key);
 
   @override
-  _SaveEditChannelState createState() => _SaveEditChannelState();
+  _StoreChannelState createState() => _StoreChannelState();
 }
 
-class _SaveEditChannelState extends State<SaveEditChannel> {
+class _StoreChannelState extends State<StoreChannel> {
   TextEditingController controllerChannelName = TextEditingController();
   TextEditingController controllerChannelId = TextEditingController();
   final dbChannel = ChannelDao.instance;
@@ -41,7 +35,8 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
       ChannelDao.columnChannelName: controllerChannelName.text,
       ChannelDao.columnChannelLinkId: controllerChannelId.text,
     };
-    final id = await dbChannel.insert(row);
+
+    await dbChannel.insert(row);
   }
 
   void _updateChannel() async {
@@ -50,7 +45,8 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
       ChannelDao.columnChannelName: controllerChannelName.text,
       ChannelDao.columnChannelLinkId: controllerChannelId.text,
     };
-    final update = await dbChannel.update(row);
+
+    await dbChannel.update(row);
   }
 
   bool validateTextFields() {
@@ -63,6 +59,7 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
       ok = false;
       validChannelId = false;
     }
+
     return ok;
   }
 
@@ -70,30 +67,27 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: widget.edit!
-              ? const Text("Edit Channel")
-              : const Text("Add Channel"),
+          title: widget.edit! ? const Text("Edit Channel") : const Text("Add Channel"),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.save_outlined),
-              tooltip: 'Save',
-              onPressed: () {
-                if (validateTextFields()) {
-                  if (!widget.edit!) {
-                    _saveChannel();
-                    Navigator.of(context).pop();
+            /*  IconButton(
+                icon: const Icon(Icons.save_outlined),
+                tooltip: 'Save',
+                onPressed: () {
+                  if (validateTextFields()) {
+                    if (!widget.edit!) {
+                      _saveChannel();
+                      Navigator.of(context).pop();
+                    } else {
+                      _updateChannel();
+                      Navigator.of(context).pop();
+                    }
                   } else {
-                    _updateChannel();
-                    Navigator.of(context).pop();
+                    setState(() {
+                      validChannelId;
+                      validChannelName;
+                    });
                   }
-                } else {
-                  setState(() {
-                    validChannelId;
-                    validChannelName;
-                  });
-                }
-              }
-            ),
+                }),*/
           ],
         ),
         body: ListView(
@@ -109,6 +103,7 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
                 keyboardType: TextInputType.name,
                 controller: controllerChannelName,
                 decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
                     labelText: "Name",
                     helperText: "* Required",
                     counterText: "",
@@ -126,6 +121,7 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
                 keyboardType: TextInputType.name,
                 controller: controllerChannelId,
                 decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
                     labelText: "Channel Id",
                     helperText: "* Required",
                     counterText: "",
@@ -136,17 +132,39 @@ class _SaveEditChannelState extends State<SaveEditChannel> {
               padding: const EdgeInsets.fromLTRB(18, 10, 25, 5),
               child: Text(
                 "Info",
-                style:
-                    TextStyle(fontSize: 16, color: Theme.of(context).hintColor),
+                style: TextStyle(fontSize: 16, color: Theme.of(context).hintColor),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(18, 10, 25, 5),
               child: Text(
                 "How to get the Channel Id:\n\nOpen the channel page in the browser and copy the code after the ' = ' symbol in the nav bar.\n\nIf unavailable, open the page source code and search for externalId.",
-                style:
-                    TextStyle(fontSize: 14, color: Theme.of(context).hintColor),
+                style: TextStyle(fontSize: 14, color: Theme.of(context).hintColor),
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
+              child: FilledButton.tonalIcon(
+                  onPressed: () {
+                    if (validateTextFields()) {
+                      if (!widget.edit!) {
+                        _saveChannel();
+                        Navigator.of(context).pop();
+                      } else {
+                        _updateChannel();
+                        Navigator.of(context).pop();
+                      }
+                    } else {
+                      setState(() {
+                        validChannelId;
+                        validChannelName;
+                      });
+                    }
+                  },
+                  icon: const Icon(Icons.save_outlined),
+                  label: const Text(
+                    'Save',
+                  )),
             ),
           ],
         ));

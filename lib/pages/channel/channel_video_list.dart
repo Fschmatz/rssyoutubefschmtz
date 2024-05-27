@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
 import 'package:rssyoutubefschmtz/db/channel_dao.dart';
-import 'package:rssyoutubefschmtz/pages/save_edit_channel.dart';
+import 'package:rssyoutubefschmtz/pages/store_channel.dart';
 import 'package:rssyoutubefschmtz/widgets/video_details_card.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
@@ -37,6 +37,7 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
   @override
   void initState() {
     super.initState();
+
     getRssYoutubeData();
   }
 
@@ -64,7 +65,8 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
 
   void deleteChannel(int id) async {
     final dbChannel = ChannelDao.instance;
-    final delete = await dbChannel.delete(id);
+
+    await dbChannel.delete(id);
   }
 
   showAlertDialogOkDelete(BuildContext context) {
@@ -115,7 +117,7 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
               Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => SaveEditChannel(
+                        builder: (BuildContext context) => StoreChannel(
                           channelId: widget.channelId,
                           channelLink: widget.channelLink,
                           channelName: widget.channelName,
