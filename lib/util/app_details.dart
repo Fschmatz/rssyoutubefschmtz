@@ -1,11 +1,11 @@
 class AppDetails{
 
-  static String appVersion = "4.4.0";
+  static String appVersion = "4.4.1";
   static String appName = "RSS YouTube Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/rssyoutubefschmtz";
 
   static String changelogCurrent = '''
-4.4.0
+4.4.1
 - Monet
 - Flutter 3.19
 - UI changes

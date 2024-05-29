@@ -3,6 +3,8 @@ import 'package:rssyoutubefschmtz/pages/channel/channels_list.dart';
 import 'package:rssyoutubefschmtz/pages/latest_videos_list.dart';
 import 'package:rssyoutubefschmtz/pages/watch_later_list.dart';
 
+import '../widgets/app_bar_sliver.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -10,6 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
+  ScrollController scrollController = ScrollController();
   final List<Widget> _tabs = [
     LatestVideosList(
       key: UniqueKey(),
@@ -23,10 +26,18 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(child: _tabs[_currentIndex]),
+        body: NestedScrollView(
+          controller: scrollController,
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[const AppBarSliver()];
+          },
+          body: MediaQuery.removePadding(removeTop: true, removeBottom: true,
+              context: context, child: _tabs[_currentIndex]),
+        ),
         bottomNavigationBar: NavigationBar(
           selectedIndex: _currentIndex,
           onDestinationSelected: (index) {
+            scrollController.jumpTo(0);
             setState(() {
               _currentIndex = index;
             });

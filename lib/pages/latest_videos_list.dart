@@ -89,17 +89,13 @@ class _LatestVideosListState extends State<LatestVideosList> with AutomaticKeepA
 
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return <Widget>[const AppBarSliver()];
-      },
-      body: (loading)
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : RefreshIndicator(
-              onRefresh: () => pullRefresh(),
-              child: ListView(children: [
+    return (loading)
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : RefreshIndicator(
+            onRefresh: () => pullRefresh(),
+            child: ListView(children: [
                 (loading)
                     ? const SizedBox.shrink()
                     : ListView.builder(
@@ -127,7 +123,6 @@ class _LatestVideosListState extends State<LatestVideosList> with AutomaticKeepA
                   height: 50,
                 )
               ]),
-            ),
-    );
+            );
   }
 }

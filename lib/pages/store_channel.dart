@@ -68,27 +68,6 @@ class _StoreChannelState extends State<StoreChannel> {
     return Scaffold(
         appBar: AppBar(
           title: widget.edit! ? const Text("Edit Channel") : const Text("Add Channel"),
-          actions: [
-            /*  IconButton(
-                icon: const Icon(Icons.save_outlined),
-                tooltip: 'Save',
-                onPressed: () {
-                  if (validateTextFields()) {
-                    if (!widget.edit!) {
-                      _saveChannel();
-                      Navigator.of(context).pop();
-                    } else {
-                      _updateChannel();
-                      Navigator.of(context).pop();
-                    }
-                  } else {
-                    setState(() {
-                      validChannelId;
-                      validChannelName;
-                    });
-                  }
-                }),*/
-          ],
         ),
         body: ListView(
           children: [

@@ -32,12 +32,7 @@ class _WatchLaterListState extends State<WatchLaterList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[const AppBarSliver()];
-        },
-        body: ListView(physics: const AlwaysScrollableScrollPhysics(), children: [
+    return ListView(physics: const AlwaysScrollableScrollPhysics(), children: [
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 450),
             child: watchLaterList.isEmpty
@@ -66,8 +61,6 @@ class _WatchLaterListState extends State<WatchLaterList> {
           const SizedBox(
             height: 50,
           )
-        ]),
-      ),
-    );
+        ]);
   }
 }

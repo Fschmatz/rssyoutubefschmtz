@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rssyoutubefschmtz/classes/feed.dart';
 import 'package:rssyoutubefschmtz/db/watch_later_dao.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:jiffy/jiffy.dart';
 
@@ -58,7 +57,7 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
     var formattedDate = Jiffy(widget.feed.data).format("dd/MM/yyyy");
 
     return Card.outlined(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: InkWell(
         borderRadius: cardBorderRadius,
         onTap: () {
@@ -81,7 +80,7 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Flexible(
                   child: Column(
@@ -114,10 +113,10 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
                       watchLaterList.isEmpty ? _saveVideoToWatchLater() : _removeFromWatchLater();
                       getWatchLaterList();
                     },
-                    icon:  Icon(
+                    icon: Icon(
                       Icons.watch_later_outlined,
                       size: 22.0,
-                      color: watchLaterList.isEmpty ? theme.hintColor : Theme.of(context).colorScheme.primary,
+                      color: watchLaterList.isEmpty ? theme.hintColor : Theme.of(context).colorScheme.tertiary,
                     ),
                   ),
                 ),
@@ -127,7 +126,7 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
                 SizedBox(
                   width: 55,
                   child: IconButton(
-                    icon: const Icon(Icons.share_outlined, size: 22.0),
+                    icon: Icon(Icons.share_outlined, size: 22.0, color: theme.hintColor),
                     onPressed: () {
                       Share.share(widget.feed.link);
                     },

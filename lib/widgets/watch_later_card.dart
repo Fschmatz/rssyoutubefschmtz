@@ -71,9 +71,10 @@ class WatchLaterCard extends StatelessWidget {
                     onPressed: () {
                       delete();
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.delete_outline,
                       size: 22.0,
+                      color: theme.hintColor,
                     ),
                   ),
                 ),
@@ -86,9 +87,10 @@ class WatchLaterCard extends StatelessWidget {
                     onPressed: () {
                       Share.share(watchLaterFeed.link);
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.share_outlined,
                       size: 22.0,
+                      color: theme.hintColor,
                     ),
                   ),
                 ),
