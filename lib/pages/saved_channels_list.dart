@@ -32,16 +32,12 @@ class _SavedChannelsListState extends State<SavedChannelsList> {
 
   String getFirstLetter(String title) {
     if (title.isEmpty) {
-      return '';
+      return '?';
     }
 
     List<String> words = title.split(' ');
 
-    if (words[0].toLowerCase() == 'the' && words.length > 1) {
-      return words[1][0].toUpperCase();
-    } else {
-      return words[0][0].toUpperCase();
-    }
+    return words[0][0].toUpperCase();
   }
 
   @override
