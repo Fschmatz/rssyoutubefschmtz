@@ -23,18 +23,17 @@ class WatchLaterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    var formattedDate = Jiffy(watchLaterFeed.date).format("dd/MM/yyyy");
 
     return InkWell(
       onTap: () {
         Utils().launchBrowser(watchLaterFeed.link);
       },
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(8, 5, 5, 0),
+        padding: const EdgeInsets.fromLTRB(8, 0, 5, 0),
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -45,7 +44,7 @@ class WatchLaterCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Flexible(
                   child: Column(
@@ -59,7 +58,7 @@ class WatchLaterCard extends StatelessWidget {
                         height: 1,
                       ),
                       Text(
-                        formattedDate,
+                        watchLaterFeed.getFormattedDate(),
                         style: TextStyle(fontSize: 12, color: theme.hintColor, fontWeight: FontWeight.w500),
                       ),
                     ],
@@ -77,9 +76,6 @@ class WatchLaterCard extends StatelessWidget {
                       color: theme.hintColor,
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 5,
                 ),
                 SizedBox(
                   width: 55,

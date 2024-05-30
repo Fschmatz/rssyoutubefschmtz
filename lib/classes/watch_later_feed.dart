@@ -1,3 +1,5 @@
+import 'package:jiffy/jiffy.dart';
+
 class WatchLaterFeed {
 
   final int id;
@@ -7,4 +9,9 @@ class WatchLaterFeed {
   final String date;
 
   WatchLaterFeed({required this.id,required this.title,required this.link,required this.date,required this.author});
+
+  String getFormattedDate(){
+    return Jiffy(date).format("dd/MM/yyyy");
+  }
+
 }

@@ -7,9 +7,9 @@ import 'package:rssyoutubefschmtz/widgets/video_details_card.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 
-class ChannelVideoList extends StatefulWidget {
+class SelectedChannelVideoList extends StatefulWidget {
   @override
-  _ChannelVideoListState createState() => _ChannelVideoListState();
+  _SelectedChannelVideoListState createState() => _SelectedChannelVideoListState();
 
   final String feedUrl;
   final String channelName;
@@ -19,7 +19,7 @@ class ChannelVideoList extends StatefulWidget {
   String channelLink;
   Function() refreshList;
 
-  ChannelVideoList(
+  SelectedChannelVideoList(
       {required Key key,
       required this.feedUrl,
       required this.channelName,
@@ -30,9 +30,9 @@ class ChannelVideoList extends StatefulWidget {
       : super(key: key);
 }
 
-class _ChannelVideoListState extends State<ChannelVideoList> {
+class _SelectedChannelVideoListState extends State<SelectedChannelVideoList> {
   bool loading = true;
-  Map<int, AtomItem> feedYoutube = {};
+  List<Feed> convertedFeedList = [];
 
   @override
   void initState() {
@@ -47,12 +47,22 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
     var response = await client.get(Uri.parse(widget.feedUrl));
     try {
       var channel = AtomFeed.parse(response.body);
-      if (mounted) {
-        setState(() {
-          feedYoutube = channel.items!.asMap();
-          loading = false;
-        });
-      }
+      Map<int, AtomItem> feedYoutube = channel.items!.asMap();
+
+      convertedFeedList = feedYoutube.values.map((atomItem) {
+        return Feed(
+          title: atomItem.title!,
+          link: atomItem.links![0].href!,
+          author: atomItem.authors![0].name!,
+          date: atomItem.published!,
+          linkImagem: 'https://i.ytimg.com/vi/${atomItem.id!.substring(9)}/hq720.jpg',
+        );
+      }).toList();
+
+      setState(() {
+        loading = false;
+      });
+
       client.close();
     } on Exception catch (_) {
       throw ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -115,18 +125,16 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
           IconButton(
             onPressed: () {
               Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => StoreChannel(
-                          channelId: widget.channelId,
-                          channelLink: widget.channelLink,
-                          channelName: widget.channelName,
-                          edit: true,
-                          key: UniqueKey(),
-                        ),
-                      ))
-                  .then((value) =>
-                      {widget.refreshList(), Navigator.of(context).pop()});
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => StoreChannel(
+                      channelId: widget.channelId,
+                      channelLink: widget.channelLink,
+                      channelName: widget.channelName,
+                      edit: true,
+                      key: UniqueKey(),
+                    ),
+                  )).then((value) => {widget.refreshList(), Navigator.of(context).pop()});
             },
             icon: const Icon(
               Icons.edit_outlined,
@@ -140,16 +148,14 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
               child: PreferredSize(
                 preferredSize: const Size.fromHeight(4.0),
                 child: LinearProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).colorScheme.primary.withOpacity(0.8)),
-                  backgroundColor:
-                      Theme.of(context).colorScheme.primary.withOpacity(0.3),
+                  valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.primary.withOpacity(0.8)),
+                  backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.3),
                 ),
               ),
             )
           : RefreshIndicator(
               onRefresh: () => getRssYoutubeData(),
-              child: (feedYoutube.isEmpty)
+              child: (convertedFeedList.isEmpty)
                   ? const SizedBox.shrink()
                   : ListView(
                       physics: const AlwaysScrollableScrollPhysics(),
@@ -157,21 +163,16 @@ class _ChannelVideoListState extends State<ChannelVideoList> {
                         ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: feedYoutube.length,
+                          itemCount: convertedFeedList.length,
                           itemBuilder: (context, index) {
+                            Feed feed = convertedFeedList[index];
+
                             return FadeInUp(
                               duration: const Duration(milliseconds: 600),
                               child: VideoDetailsCard(
-                                showChannelName: false,
-                                feed: Feed(
-                                  title: feedYoutube[index]!.title!,
-                                  link: feedYoutube[index]!.links![0].href!,
-                                  author: feedYoutube[index]!.authors![0].name!,
-                                  data: feedYoutube[index]!.published!,
-                                  linkImagem:
-                                      'https://i.ytimg.com/vi/${feedYoutube[index]!.id!.substring(9)}/hq720.jpg',
-                                ),
                                 key: UniqueKey(),
+                                showChannelName: false,
+                                feed: feed,
                               ),
                             );
                           },

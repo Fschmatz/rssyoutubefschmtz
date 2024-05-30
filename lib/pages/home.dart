@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rssyoutubefschmtz/pages/channel/channels_list.dart';
+import 'package:rssyoutubefschmtz/pages/saved_channels_list.dart';
 import 'package:rssyoutubefschmtz/pages/latest_videos_list.dart';
 import 'package:rssyoutubefschmtz/pages/watch_later_list.dart';
 
@@ -17,7 +17,7 @@ class _HomeState extends State<Home> {
     LatestVideosList(
       key: UniqueKey(),
     ),
-    ChannelsList(
+    SavedChannelsList(
       key: UniqueKey(),
     ),
     WatchLaterList(key: UniqueKey())

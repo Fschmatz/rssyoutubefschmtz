@@ -21,8 +21,7 @@ class _LatestVideosListState extends State<LatestVideosList> with AutomaticKeepA
   final dbChannel = ChannelDao.instance;
   List<Map<String, dynamic>> channelList = [];
   String urlYoutube = 'https://www.youtube.com/feeds/videos.xml?channel_id=';
-  List<AtomItem> listAllChannels = [];
-  List<AtomItem> filteredList = [];
+  List<Feed> convertedFeedList = [];
 
   @override
   void initState() {
@@ -40,8 +39,7 @@ class _LatestVideosListState extends State<LatestVideosList> with AutomaticKeepA
   }
 
   Future<void> pullRefresh() async {
-    listAllChannels = [];
-    filteredList = [];
+    convertedFeedList = [];
     setState(() {});
     getAllChannels().then((value) => getRssYoutubeFeed());
   }
@@ -58,6 +56,8 @@ class _LatestVideosListState extends State<LatestVideosList> with AutomaticKeepA
 
   //Each Youtube feed only returns 15 items
   Future<void> getRssYoutubeFeed() async {
+    List<AtomItem> listAllChannels = [];
+    List<AtomItem> filteredList = [];
     var client = http.Client();
 
     for (int i = 0; i < channelList.length; i++) {
@@ -74,16 +74,35 @@ class _LatestVideosListState extends State<LatestVideosList> with AutomaticKeepA
       }
     }
 
-    //FILTER FEED
+    // Filter Feed
     for (int i = 0; i < listAllChannels.length; i += 15) {
       filteredList.addAll(listAllChannels.skip(i).take(1).toList());
     }
 
-    if (mounted) {
-      setState(() {
-        loading = false;
+    // Convert Feed
+    convertedFeedList = filteredList.map((atomItem) {
+      return Feed(
+        title: atomItem.title!,
+        link: atomItem.links![0].href ?? "",
+        author: atomItem.authors![0].name ?? "",
+        date: atomItem.published!,
+        linkImagem: 'https://i.ytimg.com/vi/${atomItem.id!.substring(9)}/hq720.jpg',
+      );
+    }).toList();
+
+    // Order by date Desc
+    if (convertedFeedList.isNotEmpty && convertedFeedList.length > 1) {
+      convertedFeedList.sort((a, b) {
+        DateTime dateA = DateTime.parse(a.date);
+        DateTime dateB = DateTime.parse(b.date);
+        return dateB.compareTo(dateA);
       });
     }
+
+    setState(() {
+      loading = false;
+    });
+
     client.close();
   }
 
@@ -96,33 +115,29 @@ class _LatestVideosListState extends State<LatestVideosList> with AutomaticKeepA
         : RefreshIndicator(
             onRefresh: () => pullRefresh(),
             child: ListView(children: [
-                (loading)
-                    ? const SizedBox.shrink()
-                    : ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: filteredList.length,
-                        itemBuilder: (context, index) {
-                          return FadeInUp(
-                            duration: const Duration(milliseconds: 600),
-                            child: VideoDetailsCard(
-                              showChannelName: true,
-                              feed: Feed(
-                                title: filteredList[index].title!,
-                                link: filteredList[index].links![0].href!,
-                                author: filteredList[index].authors![0].name!,
-                                data: filteredList[index].published!,
-                                linkImagem: 'https://i.ytimg.com/vi/${filteredList[index].id!.substring(9)}/hq720.jpg',
-                              ),
-                              key: UniqueKey(),
-                            ),
-                          );
-                        },
-                      ),
-                const SizedBox(
-                  height: 50,
-                )
-              ]),
-            );
+              (loading)
+                  ? const SizedBox.shrink()
+                  : ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: convertedFeedList.length,
+                      itemBuilder: (context, index) {
+                        Feed feed = convertedFeedList[index];
+
+                        return FadeInUp(
+                          duration: const Duration(milliseconds: 450),
+                          child: VideoDetailsCard(
+                            key: UniqueKey(),
+                            showChannelName: true,
+                            feed: feed,
+                          ),
+                        );
+                      },
+                    ),
+              const SizedBox(
+                height: 50,
+              )
+            ]),
+          );
   }
 }

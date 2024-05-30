@@ -32,7 +32,7 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
       WatchLaterFeedDao.columnTitle: widget.feed.title,
       WatchLaterFeedDao.columnLink: widget.feed.link,
       WatchLaterFeedDao.columnAuthor: widget.feed.author,
-      WatchLaterFeedDao.columnDate: widget.feed.data,
+      WatchLaterFeedDao.columnDate: widget.feed.date,
     };
 
     await db.insert(row);
@@ -54,7 +54,6 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    var formattedDate = Jiffy(widget.feed.data).format("dd/MM/yyyy");
 
     return Card.outlined(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
@@ -100,7 +99,7 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
                         ),
                       ),
                       Text(
-                        formattedDate,
+                        widget.feed.getFormattedDate(),
                         style: TextStyle(fontSize: 12, color: theme.hintColor, fontWeight: FontWeight.w500),
                       ),
                     ],
@@ -119,9 +118,6 @@ class _VideoDetailsCardState extends State<VideoDetailsCard> {
                       color: watchLaterList.isEmpty ? theme.hintColor : Theme.of(context).colorScheme.tertiary,
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 5,
                 ),
                 SizedBox(
                   width: 55,
